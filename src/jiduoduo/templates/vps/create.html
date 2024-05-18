@@ -1,0 +1,56 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <div>
+    <div class="mt-4">
+      <form action="{{ url_for('vps.create') }}" method="POST">
+        <div>
+          {{ form.hidden_tag() }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.host.label(class="form-label") }}
+          {{ form.host(required='', class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.name.label(class="form-label") }}
+          {{ form.name(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.port.label(class="form-label") }}
+          {{ form.port(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.user.label(class="form-label") }}
+          {{ form.user(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.password.label(class="form-label") }}
+          {{ form.password(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.identify_key.label(class="form-label") }}
+          {{ form.identify_key(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          <button id="btn" class="btn btn-primary btn-block" type="submit" style="margin-bottom: 30px;">
+            保存
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

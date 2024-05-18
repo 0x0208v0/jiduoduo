@@ -1,0 +1,53 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <div>
+    <h1>用户中心</h1>
+    <div>
+
+      <ul class="list-group list-group-flush">
+
+        <li class="list-group-item">
+          <div>
+            <img src="{{ url_for('static', filename='mail.svg') }}" alt="email">
+            邮箱:
+          </div>
+          <div>{{ current_user.email }} </div>
+        </li>
+
+        <li class="list-group-item">
+          <div>
+            <img src="{{ url_for('static', filename='calendar.svg') }}" alt="created at">
+            注册时间：
+          </div>
+          <div>{{ current_user.format_created_at() }}（UTC）</div>
+        </li>
+
+        <li class="list-group-item">
+          <a class="icon-link" href="{{ url_for('user.logout') }}">
+            <img src="{{ url_for('static', filename='logout.svg') }}" alt="logout">
+            退出登陆
+          </a>
+        </li>
+
+        <li class="list-group-item">
+          <a class="icon-link link-danger" href="{{ url_for('user.delete') }}">
+            <img src="{{ url_for('static', filename='people-delete-one.svg') }}" alt="delete account">
+            删除账户
+          </a>
+        </li>
+      </ul>
+
+    </div>
+    <div></div>
+    <div>
+
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

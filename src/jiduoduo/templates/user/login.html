@@ -1,0 +1,41 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <div>
+    <h1>用户登陆</h1>
+    <div class="mt-4">
+      <form action="{{ url_for('user.login') }}" method="POST">
+        <div>
+          {{ form.hidden_tag() }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.email.label(class="form-label") }}
+          {{ form.email(class="form-control") }}
+          <div id="emailHelp" class="form-text">请放心，我们永远不会泄露您的任何信息</div>
+        </div>
+
+        <div class="mb-3">
+          {{ form.password.label(class="form-label") }}
+          {{ form.password(class="form-control") }}
+        </div>
+
+        <div class="form-check mb-3">
+          {{ form.remember_me(class="form-check-input", type="checkbox") }}
+          {{ form.remember_me.label }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.submit(class='btn btn-primary btn-block') }}
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
