@@ -17,10 +17,30 @@ def create_test_data():
         objs = [
             VPS(
                 user_id=user.id,
-                name='🐔老大',
+                name='🐔老大（纯测试用）',
                 host='192.168.1.101',
+                port=10001,
+                user='jihaoda',
                 password='jiduoduo1_password',
                 identify_key='jiduoduo1_pkey',
+            ),
+            VPS(
+                user_id=user.id,
+                name='🐔老二（纯测试用）',
+                host='192.168.1.102',
+                port=10002,
+                user='jihaoer',
+                password='jiduoduo2_password',
+                identify_key='jiduoduo2_pkey',
+            ),
+            VPS(
+                user_id=user.id,
+                name='🐔老三（纯测试用）',
+                host='192.168.1.103',
+                port=10003,
+                user='jihaosan',
+                password='jiduoduo3_password',
+                identify_key='jiduoduo3_pkey',
             ),
         ]
         db.session.add_all(objs)
