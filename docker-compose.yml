@@ -38,7 +38,7 @@ services:
     volumes:
       - ./jiduoduo_data:/jiduoduo_data
     restart: always
-    command: celery --app jiduoduo.tasks.base.celery worker --loglevel=debug
+    command: celery --app jiduoduo.tasks.base.celery worker --loglevel=info
     logging:
       driver: "json-file"
       options:
@@ -87,4 +87,3 @@ services:
 # docker-compose build
 
 # docker-compose down && docker-compose up -d
-
