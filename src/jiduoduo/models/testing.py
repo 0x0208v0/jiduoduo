@@ -54,6 +54,7 @@ TESTING_STATE_EMOJI = {
 class TestingType(StrEnum):
     LOGIN = 'login'
     SPIRITLHLS_ECS = 'spiritlhls_ecs'
+    SPIRITLHLS_ECS_SPEED = 'spiritlhls_ecs_speed'
     BASH_ICU_GB5 = 'bash_icu_gb5'
     DF_H = 'df_h'
     FREE_H = 'free_h'
@@ -75,7 +76,8 @@ UNKNOWN_TESTING_TYPE_ZH = '未知测试类型'
 
 TESTING_TYPE_ZH = {
     TestingType.LOGIN: '登陆测试',
-    TestingType.SPIRITLHLS_ECS: 'spiritLHLS ECS 融合怪',
+    TestingType.SPIRITLHLS_ECS: 'spiritLHLS ecs 融合怪',
+    TestingType.SPIRITLHLS_ECS_SPEED: 'spiritLHLS ecsspeed 自动更新测速服务器节点列表的网络基准测试脚本',
     TestingType.BASH_ICU_GB5: 'Bash ICU GB5 测试',
     TestingType.DF_H: '文件系统磁盘空间',
     TestingType.FREE_H: '系统内存使用情况',

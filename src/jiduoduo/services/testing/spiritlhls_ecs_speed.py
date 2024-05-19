@@ -11,26 +11,26 @@ from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
 
 
-class SpiritLHLSECSTestingParams(TestingParams):
-    timeout: int = Field(60 * 10 * 2)  # seconds
+class SpiritLHLSECSSpeedTestingParams(TestingParams):
+    timeout: int = Field(60 * 10)  # seconds
 
 
-class SpiritLHLSECSTestingResult(TestingResult):
+class SpiritLHLSECSSpeedTestingResult(TestingResult):
     pass
 
 
-class SpiritLHLSECSTestingService(TestingService):
-    testing_type: TestingType = TestingType.SPIRITLHLS_ECS
-    testing_params_cls: type[SpiritLHLSECSTestingParams] = SpiritLHLSECSTestingParams
-    testing_result_cls: type[SpiritLHLSECSTestingResult] = SpiritLHLSECSTestingResult
+class SpiritLHLSECSSpeedTestingService(TestingService):
+    testing_type: TestingType = TestingType.SPIRITLHLS_ECS_SPEED
+    testing_params_cls: type[SpiritLHLSECSSpeedTestingParams] = SpiritLHLSECSSpeedTestingParams
+    testing_result_cls: type[SpiritLHLSECSSpeedTestingResult] = SpiritLHLSECSSpeedTestingResult
 
     def run_on_vps(
             self,
             vps: VPS,
-            params: SpiritLHLSECSTestingParams,
+            params: SpiritLHLSECSSpeedTestingParams,
             flush_callback: Callable[[str], None],
-    ) -> SpiritLHLSECSTestingResult:
-        command = 'curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1'
+    ) -> SpiritLHLSECSSpeedTestingResult:
+        command = 'bash <(wget -qO- bash.spiritlhl.net/ecs-net)'
 
         class StreamLogger:
             def __init__(self):
@@ -50,8 +50,9 @@ class SpiritLHLSECSTestingService(TestingService):
             watchers=[
                 Responder(pattern=r'[y]/n', response='y\n'),
                 Responder(pattern=r'Y/n', response='Y\n'),
+                Responder(pattern=r'请输入数字', response='1\n'),
             ],
             out_stream=StreamLogger(),
         )
 
-        return SpiritLHLSECSTestingResult(result=str(run_result))
+        return SpiritLHLSECSSpeedTestingResult(result=str(run_result))

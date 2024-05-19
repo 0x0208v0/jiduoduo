@@ -17,6 +17,7 @@ from jiduoduo.services.testing.ip_sb_4 import IPSB4TestingService
 from jiduoduo.services.testing.ip_sb_6 import IPSB6TestingService
 from jiduoduo.services.testing.login import LoginTestingService
 from jiduoduo.services.testing.spiritlhls_ecs import SpiritLHLSECSTestingService
+from jiduoduo.services.testing.spiritlhls_ecs_speed import SpiritLHLSECSSpeedTestingService
 from jiduoduo.services.testing.yabs_basic_sys_info import YABSBasicSysInfoTestingService
 from jiduoduo.services.testing.yabs_default import YABSDefaultTestingService
 from jiduoduo.services.testing.yabs_disk import YABSDiskTestingService
@@ -27,6 +28,7 @@ logger = logging.getLogger(__name__)
 TESTING_SERVICE_CLS_DICT = {
     TestingType.LOGIN: LoginTestingService,
     TestingType.SPIRITLHLS_ECS: SpiritLHLSECSTestingService,
+    TestingType.SPIRITLHLS_ECS_SPEED: SpiritLHLSECSSpeedTestingService,
     TestingType.BASH_ICU_GB5: BashICUGB5TestingService,
     TestingType.DF_H: DFHTestingService,
     TestingType.FREE_H: DFHTestingService,
