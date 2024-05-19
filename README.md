@@ -54,11 +54,86 @@
 
     docker-compose down && docker-compose up -d
 
-### 【其他】 如何启动单个服务？（以webserver为例）
+## 写代码前的准备——入门资料
 
+### 如何 Python3 入门？
+
+    廖雪峰：Python教程
+    https://www.liaoxuefeng.com/wiki/1016959663602400
+
+    Python3 官方文档
+    https://docs.python.org/zh-cn/3/tutorial/index.html
+
+### 如何 Flask 入门？（Flask 是开源的 Python3 Web 框架）
+
+    李辉：Flask 入门教程
+    https://tutorial.helloflask.com/
+
+### 如何 Docker 入门？
+
+    阮一峰：Docker 入门教程
+    https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html
+
+## FAQ
+
+### 如何单独启动某个服务？
+
+    # 命令行执行下面的命令：
+
+    # 单独启动 webserver
     docker-compose down webserver && docker-compose up webserver -d
+    
+    # 单独启动 webserver 和 worker
+    docker-compose down webserver worker && docker-compose up webserver worker -d
 
-### 【其他】 如何备份数据库和配置文件？
+    # 单独启动 redis 和 redis-commander
+    docker-compose down redis redis-commander && docker-compose up redis redis-commander -d
+
+### 如何查看当前 Docker 运行了哪些容器？
+
+    # 命令行执行下面的命令：
+
+    docker ps
+
+### 如何查看 Docker 容器里，正在运行的进程有哪些？
+
+    # 命令行执行下面的命令：
+
+    # 查看 webserver 容器里运行了哪些进程
+    docker top jiduoduo-webserver
+
+    # 查看 worker 容器里运行了哪些进程
+    docker top jiduoduo-worker
+    
+    # 查看 redis 容器里运行了哪些进程
+    docker top jiduoduo-redis
+
+    # 查看 redis-commander 容器里运行了哪些进程
+    docker top jiduoduo-redis-commander
+
+    # 查看 adminer 容器里运行了哪些进程
+    docker top jiduoduo-adminer
+
+### 如何进入到某个容器里？
+
+    # 命令行执行下面的命令：
+
+    # 进入 webserver 容器
+    docker exec --rm -it jiduoduo-webserver bash
+
+    # 进入 worker 容器
+    docker exec --rm -it jiduoduo-worker bash
+
+    # 进入 redis 容器
+    docker exec --rm -it jiduoduo-redis bash
+
+    # 进入 redis-commander 容器（注意这里不是 bash 而是 sh）
+    docker exec --rm -it jiduoduo-redis-commander sh
+
+    # 进入 adminer 容器
+    docker exec --rm -it jiduoduo-adminer sh
+
+### 如何备份数据库和配置文件？
 
 `请看下面的 ⚠️注意`
 
@@ -103,10 +178,10 @@
 
 ### 2. 使用下面命令安装依赖包
 
-    pip install -e .
+    pip3 install -e .
 
 ### 芜湖～开始魔改代码吧！
 
-`（靠！时间流逝得怎么和花钱一样快？`
+`（靠！时间怎么流逝得就像花钱一样快？`
  
 
