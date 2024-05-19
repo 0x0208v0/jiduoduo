@@ -2,19 +2,8 @@ from wtforms import IntegerField
 from wtforms import StringField
 from wtforms import TextAreaField
 from wtforms.validators import DataRequired
-from wtforms.validators import ValidationError
 
 from jiduoduo.forms.base import BaseForm
-
-
-def max_choices(value=4):
-    message = f'You cannot select more than {value} options.'
-
-    def _max_choices(form, field):
-        if len(field.data) > value:
-            raise ValidationError(message)
-
-    return _max_choices
 
 
 class VPSForm(BaseForm):
@@ -30,7 +19,7 @@ class VPSForm(BaseForm):
     name = StringField(
         'VPS 名称：',
         render_kw={
-            'placeholder': '如：斯巴达36刀建站鸡；可以不填，默认为VPS地址',
+            'placeholder': '如：斯巴达24刀建站鸡；可以不填，默认为VPS地址',
         }
     )
     port = IntegerField(

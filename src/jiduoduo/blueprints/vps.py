@@ -40,7 +40,7 @@ def create():
         else:
             vps = VPS(
                 user_id=current_user.id,
-                name=form.name.data,
+                name=form.name.data or form.host.data,
                 host=form.host.data,
                 port=form.port.data,
                 user=form.user.data,

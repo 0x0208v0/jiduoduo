@@ -4,32 +4,40 @@ import uuid
 from jiduoduo.models import Testing
 from jiduoduo.models import TestingType
 from jiduoduo.models import VPS
+from jiduoduo.services.testing.backtrace import BacktraceTestingService
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingService
+from jiduoduo.services.testing.bash_icu_gb5 import BashICUGB5TestingService
 from jiduoduo.services.testing.ecs import ECSTestingService
-from jiduoduo.services.testing.gb5 import GB5TestingService
-from jiduoduo.services.testing.ip_check import IPCheckTestingService
+from jiduoduo.services.testing.ip_check_place import IPCheckPlaceTestingService
 from jiduoduo.services.testing.login import LoginTestingService
+from jiduoduo.services.testing.yabs_basic_sys_info import YABSBasicSysInfoTestingService
+from jiduoduo.services.testing.yabs_default import YABSDefaultTestingService
+from jiduoduo.services.testing.yabs_disk import YABSDiskTestingService
+from jiduoduo.services.testing.yabs_gb5 import YABSGB5TestingService
 
 logger = logging.getLogger(__name__)
+
+TESTING_SERVICE_CLS_DICT = {
+    TestingType.LOGIN: LoginTestingService,
+    TestingType.ECS: ECSTestingService,
+    TestingType.IP_CHECK_PLACE: IPCheckPlaceTestingService,
+    TestingType.BASH_ICU_GB5: BashICUGB5TestingService,
+    TestingType.BACKTRACE: BacktraceTestingService,
+    # yabs 系列
+    TestingType.YABS_DEFAULT: YABSDefaultTestingService,
+    TestingType.YABS_BASIC_SYS_INFO: YABSBasicSysInfoTestingService,
+    TestingType.YABS_DISK: YABSDiskTestingService,
+    TestingType.YABS_GB5: YABSGB5TestingService,
+}
 
 
 def get_testing_service_cls(testing_type: TestingType | str) -> type[TestingService]:
     testing_type = TestingType(testing_type)
 
-    if testing_type == TestingType.LOGIN:
-        testing_service_cls = LoginTestingService
+    testing_service_cls = TESTING_SERVICE_CLS_DICT.get(testing_type)
 
-    elif testing_type == TestingType.ECS:
-        testing_service_cls = ECSTestingService
-
-    elif testing_type == TestingType.IP_CHECK:
-        testing_service_cls = IPCheckTestingService
-
-    elif testing_type == TestingType.GB5:
-        testing_service_cls = GB5TestingService
-
-    else:
+    if testing_service_cls is None:
         raise ValueError(f'不支持 {testing_type}')
 
     return testing_service_cls

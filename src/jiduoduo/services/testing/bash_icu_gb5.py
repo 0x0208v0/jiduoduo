@@ -1,5 +1,4 @@
 import io
-import time
 from typing import Callable
 
 from pydantic import Field
@@ -11,26 +10,26 @@ from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
 
 
-class IPCheckTestingParams(TestingParams):
-    timeout: int = Field(60 * 5)  # seconds
+class BashICUGB5TestingParams(TestingParams):
+    timeout: int = Field(60 * 10 * 2)  # seconds
 
 
-class IPCheckTestingResult(TestingResult):
+class BashICUGB5TestingResult(TestingResult):
     pass
 
 
-class IPCheckTestingService(TestingService):
-    testing_type: TestingType = TestingType.IP_CHECK
-    testing_params_cls: type[IPCheckTestingParams] = IPCheckTestingParams
-    testing_result_cls: type[IPCheckTestingResult] = IPCheckTestingResult
+class BashICUGB5TestingService(TestingService):
+    testing_type: TestingType = TestingType.BASH_ICU_GB5
+    testing_params_cls: type[BashICUGB5TestingParams] = BashICUGB5TestingParams
+    testing_result_cls: type[BashICUGB5TestingResult] = BashICUGB5TestingResult
 
     def run_on_vps(
             self,
             vps: VPS,
-            params: IPCheckTestingParams,
+            params: BashICUGB5TestingParams,
             flush_callback: Callable[[str], None],
-    ) -> IPCheckTestingResult:
-        command = 'bash <(curl -sL IP.Check.Place)'
+    ) -> BashICUGB5TestingResult:
+        command = 'bash <(curl -sL bash.icu/gb5)'
 
         class StreamLogger:
             def __init__(self):
@@ -45,10 +44,8 @@ class IPCheckTestingService(TestingService):
         run_result = vps.run(
             command,
             timeout=params.timeout,
-            hide=True,
             warn=True,
-            pty=True,
             out_stream=StreamLogger(),
         )
-        time.sleep(1)
-        return IPCheckTestingResult(result=str(run_result))
+
+        return BashICUGB5TestingResult(result=str(run_result))

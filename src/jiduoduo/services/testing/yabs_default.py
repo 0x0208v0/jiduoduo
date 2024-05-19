@@ -10,26 +10,26 @@ from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
 
 
-class GB5TestingParams(TestingParams):
+class YABSDefaultTestingParams(TestingParams):
     timeout: int = Field(60 * 10 * 2)  # seconds
 
 
-class GB5TestingResult(TestingResult):
+class YABSDefaultTestingResult(TestingResult):
     pass
 
 
-class GB5TestingService(TestingService):
-    testing_type: TestingType = TestingType.GB5
-    testing_params_cls: type[GB5TestingParams] = GB5TestingParams
-    testing_result_cls: type[GB5TestingResult] = GB5TestingResult
+class YABSDefaultTestingService(TestingService):
+    testing_type: TestingType = TestingType.YABS_DEFAULT
+    testing_params_cls: type[YABSDefaultTestingParams] = YABSDefaultTestingParams
+    testing_result_cls: type[YABSDefaultTestingResult] = YABSDefaultTestingResult
 
     def run_on_vps(
             self,
             vps: VPS,
-            params: GB5TestingParams,
+            params: YABSDefaultTestingParams,
             flush_callback: Callable[[str], None],
-    ) -> GB5TestingResult:
-        command = 'curl -sL yabs.sh | bash -s -- -i -5'
+    ) -> YABSDefaultTestingResult:
+        command = 'curl -sL yabs.sh | bash'
 
         class StreamLogger:
             def __init__(self):
@@ -48,4 +48,4 @@ class GB5TestingService(TestingService):
             out_stream=StreamLogger(),
         )
 
-        return GB5TestingResult(result=str(run_result))
+        return YABSDefaultTestingResult(result=str(run_result))

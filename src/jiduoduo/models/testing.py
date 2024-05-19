@@ -54,16 +54,31 @@ TESTING_STATE_EMOJI = {
 class TestingType(StrEnum):
     LOGIN = 'login'
     ECS = 'ecs'
-    IP_CHECK = 'ip_check'
-    GB5 = 'gb5'
+    IP_CHECK_PLACE = 'ip_check_place'
+    BASH_ICU_GB5 = 'bash_icu_gb5'
+    BACKTRACE = 'backtrace'
+
+    # YABS 系列
+    YABS_DEFAULT = 'yabs_default'
+    YABS_BASIC_SYS_INFO = 'yabs_basic_sys_info'
+    YABS_DISK = 'yabs_disk'
+    YABS_GB5 = 'yabs_gb5'
 
 
 UNKNOWN_TESTING_TYPE_ZH = '未知测试类型'
+
 TESTING_TYPE_ZH = {
     TestingType.LOGIN: '登陆测试',
     TestingType.ECS: '融合怪',
-    TestingType.IP_CHECK: 'IP质量体检报告',
-    TestingType.GB5: 'GB5',
+    TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
+    TestingType.BASH_ICU_GB5: 'Bash ICU GB5 测试',
+    TestingType.BACKTRACE: '三网回程路由测试',
+
+    # YABS 系列
+    TestingType.YABS_DEFAULT: 'YABS 默认测试',
+    TestingType.YABS_BASIC_SYS_INFO: 'YABS 系统基础信息',
+    TestingType.YABS_DISK: 'YABS 硬盘测试',
+    TestingType.YABS_GB5: 'YABS GB5 测试',
 }
 
 
