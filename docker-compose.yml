@@ -72,7 +72,7 @@ services:
     container_name: jiduoduo-adminer
     working_dir: /jiduoduo_data
     environment:
-      - ADMINER_DEFAULT_SERVER=sqlite3
+      - ADMINER_DEFAULT_SERVER=db.sqlite3
     volumes:
       # https://github.com/TimWolla/docker-adminer/issues/123
       - ./jiduoduo_data:/jiduoduo_data
