@@ -19,7 +19,7 @@ services:
       '--error-logfile', '-',
       '-b', '0.0.0.0:5000',
       '-k', 'gevent',
-      '-w', '4',
+      '-w', '2',
       '-t', '30',
       'jiduoduo.app:app'
     ]
