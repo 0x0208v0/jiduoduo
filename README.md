@@ -16,17 +16,17 @@
 欢迎贡献代码，欢迎标点符号修改，欢迎错别字修改，欢迎文本文案优化，欢迎变量命名修改，欢迎反馈BUG，欢迎提出改进建议，欢迎吐槽，欢迎拍砖...    
 `（超！窝发现README.md文件存在错别字，劳资立刻提交！）`
 
-## 如何贡献代码？如何帮助修改错字？
+## 如何帮助修改错字？如何贡献代码？如何让 jiduoduo 变得更加健壮？
 
-向 `develop` 分支提交 `Pull requests` 即可，Review 通过后，会立刻合并。  
+向 `develop` 分支发起 `Pull requests` 就可以啦。Review 通过后会进行合并。合并后，提交的内容立刻就会出现在 develop 分支了。  
 `（好耶！）`
 
-提交前，请先自己疯狂Review一下自己提交的内容。  
+提交前，请先让自己疯狂Review一下正在提交的内容，以免造成大家时间流失。  
 `（好的！）`
 
 ## 如何在本机部署？
 
-首先，要确保本机已经安装 docker 和 docker-compose 软件
+首先，确保本机已经安装 docker 和 docker-compose 软件
 
 小技巧：可在命令行输入下面的两条命令，来确认是否已经安装过）
 
@@ -54,27 +54,40 @@
 
     docker-compose down && docker-compose up -d
 
-## 写代码前的准备——入门资料
+## 本机部署后，如何浏览器访问？
 
-### 如何 Python3 入门？
+### jiduoduo Web 页面：
 
-    廖雪峰：Python教程
-    https://www.liaoxuefeng.com/wiki/1016959663602400
+默认地址：http://localhost:15000/    
+默认账户 & 密码：请手动注册
 
-    Python3 官方文档
-    https://docs.python.org/zh-cn/3/tutorial/index.html
+### jiduoduo Redis 管理页面：
 
-### 如何 Flask 入门？（Flask 是开源的 Python3 Web 框架）
+默认地址：http://localhost:15011/  
+默认Username：jiduoduo  
+默认Password：jiduoduo
 
-    李辉：Flask 入门教程
-    https://tutorial.helloflask.com/
+### jiduoduo SQLite3 管理页面：
 
-### 如何 Docker 入门？
+默认地址：http://localhost:15012/  
+默认System：SQLite 3  
+默认Username：jiduoduo  
+默认Password：jiduoduo  
+默认Database：/jiduoduo_data/db.sqlite3
 
-    阮一峰：Docker 入门教程
-    https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html
+### ⚠️注意：在不了解数据库结构的情况下，请不要随意修改数据，以免导致服务不可用，或数据永久丢失
 
 ## FAQ
+
+### 如何备份 数据库 和 配置文件？
+
+`请看下面的 ⚠️注意`
+
+### ⚠️注意：启动后会在当前目录新建 jiduoduo_data 文件夹，内容如下：
+
+1. db.sqlite3 文件（jiduoduo的sqlite3数据库，有需要可以拷贝出去备份）
+2. .env 文件（Web相关的配置，能够自定义配置 SQL数据库 和 Redis。可参照.env.example文件修改）
+3. 其他文件
 
 ### 如何单独启动某个 Docker 容器？
 
@@ -133,38 +146,25 @@
     # 进入 adminer 容器
     docker exec -it jiduoduo-adminer bash
 
-### 如何备份数据库和配置文件？
+## 写代码前的准备——入门资料
 
-`请看下面的 ⚠️注意`
+### 如何 Python3 入门？
 
-### ⚠️注意：启动后会在当前目录新建 jiduoduo_data 文件夹，内容如下：
+    廖雪峰：Python教程
+    https://www.liaoxuefeng.com/wiki/1016959663602400
 
-1. db.sqlite3 文件（jiduoduo的sqlite3数据库，有需要可以拷贝出去备份）
-2. .env 文件（Web相关的配置，能够自定义配置 SQL数据库 和 Redis。可参照.env.example文件修改）
-3. 其他文件
+    Python3 官方文档
+    https://docs.python.org/zh-cn/3/tutorial/index.html
 
-## 本机部署后，如何浏览器访问？
+### 如何 Flask 入门？（Flask 是开源的 Python3 Web 框架）
 
-### jiduoduo Web 页面：
+    李辉：Flask 入门教程
+    https://tutorial.helloflask.com/
 
-默认地址：http://localhost:15000/    
-默认账户 & 密码：请手动注册
+### 如何 Docker 入门？
 
-### jiduoduo Redis 管理页面：
-
-默认地址：http://localhost:15011/  
-默认Username：jiduoduo  
-默认Password：jiduoduo
-
-### jiduoduo SQLite3 管理页面：
-
-默认地址：http://localhost:15012/  
-默认System：SQLite 3  
-默认Username：jiduoduo  
-默认Password：jiduoduo  
-默认Database：/jiduoduo_data/db.sqlite3
-
-### ⚠️注意：在不了解数据库结构的情况下，请不要随意修改数据，以免导致服务不可用，或数据永久丢失
+    阮一峰：Docker 入门教程
+    https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html
 
 ## 如何本地开发和调试？
 
