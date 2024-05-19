@@ -42,15 +42,15 @@
 
 最后，按照下面的步骤，依次执行命令：
 
-### 1. 拉镜像
+### 1. 拉 Docker 镜像
 
     docker-compose pull 
 
-### 2. 构建镜像（主要是 jiduoduo-webserver和 jiduoduo-worker）
+### 2. 构建 Docker 镜像（主要是 jiduoduo-webserver和 jiduoduo-worker）
 
     docker-compose build
 
-### 3. 销毁旧镜像，启动新镜像
+### 3. 干掉旧的 Docker 容器，启动新的 Docker 容器
 
     docker-compose down && docker-compose up -d
 
