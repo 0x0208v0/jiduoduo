@@ -7,6 +7,40 @@
 `欢迎全宇宙的小伙伴们参与贡献 jiduoduo 开源项目 `  
 `（此处有眼神暗示全场MJJ）`
 
+## 附上部分截图：
+
+## 目前支持16种常见测试（其他的会陆续增加）
+
+![新建测试](https://img.erpweb.eu.org/imgs/2024/05/64e59cb4ee6a231b.png)
+
+## 融合怪测试截图
+
+![融合怪测试截图](https://img.erpweb.eu.org/imgs/2024/05/6996ce50bdca1e78.png)
+
+## 三网回程路由测试截图
+
+![三网回程路由测试截图](https://img.erpweb.eu.org/imgs/2024/05/90b8341b69ef20b9.png)
+
+## GB5测试截图
+
+![GB5测试](https://img.erpweb.eu.org/imgs/2024/05/51c72d03f3b740b0.jpg)
+
+## 登陆后
+
+![登陆后](https://img.erpweb.eu.org/imgs/2024/05/1a4f286a7f94192c.jpg)
+
+## VPS列表页
+
+![VPS列表页](https://img.erpweb.eu.org/imgs/2024/05/4b3cdf1c6443e4f6.jpg)
+
+## 测试报告列表页
+
+![测试报告列表页](https://img.erpweb.eu.org/imgs/2024/05/87e5cebcb2f3c687.jpg)
+
+## 新增VPS
+
+![新增VPS](https://img.erpweb.eu.org/imgs/2024/05/173fe11066edac2f.jpg)
+
 ## 免责声明
 
 本项目及相关代码文件，仅限于学习用途，不可用于商业，不可用于违法犯罪，否则后果自负。
