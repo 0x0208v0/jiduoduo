@@ -27,11 +27,15 @@
 
     docker-compose down && docker-compose up -d
 
-### 4. 如何启动单个服务？（以webserver为例）
+### [其他] 如何启动单个服务？（以webserver为例）
 
     docker-compose down webserver && docker-compose up webserver -d
 
-### ⚠️注意：启动后会在当前目录新建 jiduoduo_data文件夹，内容如下：
+### [其他] 如何备份数据库和配置文件？
+
+请看下面的 ⚠️注意
+
+### ⚠️注意：启动后会在当前目录新建 jiduoduo_data 文件夹，内容如下：
 
 1. db.sqlite3 文件（jiduoduo的sqlite3数据库，有需要可以拷贝出去备份）
 2. .env 文件（Web相关的配置，能够自定义配置 SQL数据库 和 Redis。可参照.env.example文件修改）
