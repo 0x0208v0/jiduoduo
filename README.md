@@ -25,7 +25,7 @@
 
 ### 3. 销毁旧镜像，启动新镜像
 
-    ocker-compose down && docker-compose up -d
+    docker-compose down && docker-compose up -d
 
 ### ⚠️注意：启动后会在当前目录新建 jiduoduo_data文件夹，内容如下：
 
@@ -38,7 +38,7 @@
 ### jiduoduo Web页面：
 
 默认地址：http://localhost:15000/    
-默认账户 & 密码：需手动注册
+默认账户 & 密码：请手动注册
 
 ### jiduoduo Redis管理页面：
 
@@ -49,10 +49,10 @@
 ### jiduoduo SQLite3管理页面：
 
 默认地址：http://localhost:15012/  
-默认System: SQLite 3  
-默认Username: jiduoduo  
-默认Password: jiduoduo  
-默认Database: /jiduoduo_data/db.sqlite3
+默认System：SQLite 3  
+默认Username：jiduoduo  
+默认Password：jiduoduo  
+默认Database：/jiduoduo_data/db.sqlite3
 
 ### ⚠️注意：在不了解数据库结构的情况下，请不要随意修改数据，以免造成服务不可用，或数据丢失
 
