@@ -10,25 +10,25 @@ from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
 
 
-class ECSTestingParams(TestingParams):
+class SpiritLHLSECSTestingParams(TestingParams):
     timeout: int = Field(60 * 10 * 2)  # seconds
 
 
-class ECSTestingResult(TestingResult):
+class SpiritLHLSECSTestingResult(TestingResult):
     pass
 
 
-class ECSTestingService(TestingService):
-    testing_type: TestingType = TestingType.ECS
-    testing_params_cls: type[ECSTestingParams] = ECSTestingParams
-    testing_result_cls: type[ECSTestingResult] = ECSTestingResult
+class SpiritLHLSECSTestingService(TestingService):
+    testing_type: TestingType = TestingType.SPIRITLHLS_ECS
+    testing_params_cls: type[SpiritLHLSECSTestingParams] = SpiritLHLSECSTestingParams
+    testing_result_cls: type[SpiritLHLSECSTestingResult] = SpiritLHLSECSTestingResult
 
     def run_on_vps(
             self,
             vps: VPS,
-            params: ECSTestingParams,
+            params: SpiritLHLSECSTestingParams,
             flush_callback: Callable[[str], None],
-    ) -> ECSTestingResult:
+    ) -> SpiritLHLSECSTestingResult:
         command = 'curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1'
 
         class StreamLogger:
@@ -48,4 +48,4 @@ class ECSTestingService(TestingService):
             out_stream=StreamLogger(),
         )
 
-        return ECSTestingResult(result=str(run_result))
+        return SpiritLHLSECSTestingResult(result=str(run_result))

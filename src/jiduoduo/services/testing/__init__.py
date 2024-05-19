@@ -8,9 +8,15 @@ from jiduoduo.services.testing.backtrace import BacktraceTestingService
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingService
 from jiduoduo.services.testing.bash_icu_gb5 import BashICUGB5TestingService
-from jiduoduo.services.testing.ecs import ECSTestingService
+from jiduoduo.services.testing.check_unlock_media import CheckUnlockMediaTestingService
+from jiduoduo.services.testing.df_h import DFHTestingService
+from jiduoduo.services.testing.free_h import FREEHTestingService
 from jiduoduo.services.testing.ip_check_place import IPCheckPlaceTestingService
+from jiduoduo.services.testing.ip_info_io import IPInfoIOTestingService
+from jiduoduo.services.testing.ip_sb_4 import IPSB4TestingService
+from jiduoduo.services.testing.ip_sb_6 import IPSB6TestingService
 from jiduoduo.services.testing.login import LoginTestingService
+from jiduoduo.services.testing.spiritlhls_ecs import SpiritLHLSECSTestingService
 from jiduoduo.services.testing.yabs_basic_sys_info import YABSBasicSysInfoTestingService
 from jiduoduo.services.testing.yabs_default import YABSDefaultTestingService
 from jiduoduo.services.testing.yabs_disk import YABSDiskTestingService
@@ -20,11 +26,18 @@ logger = logging.getLogger(__name__)
 
 TESTING_SERVICE_CLS_DICT = {
     TestingType.LOGIN: LoginTestingService,
-    TestingType.ECS: ECSTestingService,
-    TestingType.IP_CHECK_PLACE: IPCheckPlaceTestingService,
+    TestingType.SPIRITLHLS_ECS: SpiritLHLSECSTestingService,
     TestingType.BASH_ICU_GB5: BashICUGB5TestingService,
+    TestingType.DF_H: DFHTestingService,
+    TestingType.FREE_H: DFHTestingService,
+    # IP 相关
     TestingType.BACKTRACE: BacktraceTestingService,
-    # yabs 系列
+    TestingType.IP_CHECK_PLACE: IPCheckPlaceTestingService,
+    TestingType.CHECK_UNLOCK_MEDIA: CheckUnlockMediaTestingService,
+    TestingType.IP_SB_4: IPSB4TestingService,
+    TestingType.IP_SB_6: IPSB6TestingService,
+    TestingType.IP_INFO_IO: IPInfoIOTestingService,
+    # YABS 相关
     TestingType.YABS_DEFAULT: YABSDefaultTestingService,
     TestingType.YABS_BASIC_SYS_INFO: YABSBasicSysInfoTestingService,
     TestingType.YABS_DISK: YABSDiskTestingService,

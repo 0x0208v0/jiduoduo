@@ -53,12 +53,18 @@ TESTING_STATE_EMOJI = {
 
 class TestingType(StrEnum):
     LOGIN = 'login'
-    ECS = 'ecs'
-    IP_CHECK_PLACE = 'ip_check_place'
+    SPIRITLHLS_ECS = 'spiritlhls_ecs'
     BASH_ICU_GB5 = 'bash_icu_gb5'
+    DF_H = 'df_h'
+    FREE_H = 'free_h'
+    # IP 相关
     BACKTRACE = 'backtrace'
-
-    # YABS 系列
+    IP_CHECK_PLACE = 'ip_check_place'
+    CHECK_UNLOCK_MEDIA = 'check_unlock_media'
+    IP_SB_4 = 'ip_sb_4'
+    IP_SB_6 = 'ip_sb_6'
+    IP_INFO_IO = 'ip_info_io'
+    # YABS 相关
     YABS_DEFAULT = 'yabs_default'
     YABS_BASIC_SYS_INFO = 'yabs_basic_sys_info'
     YABS_DISK = 'yabs_disk'
@@ -69,12 +75,18 @@ UNKNOWN_TESTING_TYPE_ZH = '未知测试类型'
 
 TESTING_TYPE_ZH = {
     TestingType.LOGIN: '登陆测试',
-    TestingType.ECS: '融合怪',
-    TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
+    TestingType.SPIRITLHLS_ECS: 'spiritLHLS ECS 融合怪',
     TestingType.BASH_ICU_GB5: 'Bash ICU GB5 测试',
+    TestingType.DF_H: '文件系统磁盘空间',
+    TestingType.FREE_H: '系统内存使用情况',
+    # IP 相关
     TestingType.BACKTRACE: '三网回程路由测试',
-
-    # YABS 系列
+    TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
+    TestingType.CHECK_UNLOCK_MEDIA: '流媒体平台及游戏区域限制测试',
+    TestingType.IP_SB_4: 'IPv4 出口测试',
+    TestingType.IP_SB_6: 'IPv6 出口测试',
+    TestingType.IP_INFO_IO: '当前IP信息查询',
+    # YABS 相关
     TestingType.YABS_DEFAULT: 'YABS 默认测试',
     TestingType.YABS_BASIC_SYS_INFO: 'YABS 系统基础信息',
     TestingType.YABS_DISK: 'YABS 硬盘测试',
