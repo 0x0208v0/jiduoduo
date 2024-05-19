@@ -119,19 +119,19 @@
     # 命令行执行下面的命令：
 
     # 进入 webserver 容器
-    docker exec --rm -it jiduoduo-webserver bash
+    docker exec -it jiduoduo-webserver bash
 
     # 进入 worker 容器
-    docker exec --rm -it jiduoduo-worker bash
+    docker exec -it jiduoduo-worker bash
 
     # 进入 redis 容器
-    docker exec --rm -it jiduoduo-redis bash
+    docker exec -it jiduoduo-redis bash
 
     # 进入 redis-commander 容器（注意这里不是 bash 而是 sh）
-    docker exec --rm -it jiduoduo-redis-commander sh
+    docker exec -it jiduoduo-redis-commander sh
 
     # 进入 adminer 容器
-    docker exec --rm -it jiduoduo-adminer sh
+    docker exec -it jiduoduo-adminer bash
 
 ### 如何备份数据库和配置文件？
 
