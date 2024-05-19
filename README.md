@@ -76,7 +76,17 @@
 
 首先，确保本机已经安装 docker 和 docker-compose 软件
 
-小技巧：可在命令行输入下面的两条命令，来确认是否已经安装过）
+如果不会安装，这里推荐推荐一个炒鸡好用的办法！
+
+    先安装1panel（到下面的链接，找到你当前系统对应的命令行，跟着提示下一步下一步下一步...）
+    https://1panel.cn/docs/installation/online_installation/
+
+    安装好1panel后，输入下面的命令，卸载1panel（1panel团队当场拍断大腿）
+    1pctl uninstall
+    
+    这样就免费得到最新版本的docker 和 docker-compose了！是不是很简单！
+
+小技巧：可在命令行输入下面的两条命令，来确认 docker 和 docker-compose 是否已经安装成功）
 
 如果已安装，则会输出版本信息；否则会报错  
 `（诶嘿嘿，又学到一招～`
