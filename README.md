@@ -76,17 +76,17 @@
 
 ## FAQ
 
-### 如何单独启动某个服务？
+### 如何单独启动某个 Docker 容器？
 
     # 命令行执行下面的命令：
 
     # 单独启动 webserver
     docker-compose down webserver && docker-compose up webserver -d
     
-    # 单独启动 webserver 和 worker
+    # 启动 webserver 和 worker
     docker-compose down webserver worker && docker-compose up webserver worker -d
 
-    # 单独启动 redis 和 redis-commander
+    # 启动 redis 和 redis-commander
     docker-compose down redis redis-commander && docker-compose up redis redis-commander -d
 
 ### 如何查看当前 Docker 运行了哪些容器？
@@ -114,7 +114,7 @@
     # 查看 adminer 容器里运行了哪些进程
     docker top jiduoduo-adminer
 
-### 如何进入到某个容器里？
+### 如何进入到某个正在运行的 Docker 容器里？
 
     # 命令行执行下面的命令：
 
@@ -145,18 +145,18 @@
 
 ## 本机部署后，如何浏览器访问？
 
-### jiduoduo Web页面：
+### jiduoduo Web 页面：
 
 默认地址：http://localhost:15000/    
 默认账户 & 密码：请手动注册
 
-### jiduoduo Redis管理页面：
+### jiduoduo Redis 管理页面：
 
 默认地址：http://localhost:15011/  
 默认Username：jiduoduo  
 默认Password：jiduoduo
 
-### jiduoduo SQLite3管理页面：
+### jiduoduo SQLite3 管理页面：
 
 默认地址：http://localhost:15012/  
 默认System：SQLite 3  
@@ -164,7 +164,7 @@
 默认Password：jiduoduo  
 默认Database：/jiduoduo_data/db.sqlite3
 
-### ⚠️注意：在不了解数据库结构的情况下，请不要随意修改数据，以免造成服务不可用，或数据丢失
+### ⚠️注意：在不了解数据库结构的情况下，请不要随意修改数据，以免导致服务不可用，或数据永久丢失
 
 ## 如何本地开发和调试？
 
