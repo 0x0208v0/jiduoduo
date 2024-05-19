@@ -49,5 +49,6 @@ def create_test_data():
 
 
 if __name__ == '__main__':
-    create_test_data()
+    # 如果需要测试数据，可以解除 create_test_data() 注释
+    # create_test_data()
     app.run(debug=True, threaded=False, host='localhost', port=15000)
