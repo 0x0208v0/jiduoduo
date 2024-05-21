@@ -13,6 +13,9 @@ RUN apt update \
     && apt install --no-install-recommends -y redis-server \
     && apt install --no-install-recommends -y supervisor
 
+
+COPY ./supervisor.conf /etc/supervisor/conf.d/jiduoduo.conf
+
 WORKDIR /jiduoduo_data
 
 COPY --from=pyhton311 /jiduoduo_data/dist /jiduoduo_data/dist

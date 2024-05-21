@@ -1,3 +1,4 @@
 *
 !src
 !pyproject.toml
+!supervisor.conf
