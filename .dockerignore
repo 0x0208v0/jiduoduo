@@ -3,3 +3,4 @@
 !pyproject.toml
 !redis.conf
 !supervisor.conf
+!entrypoint.sh

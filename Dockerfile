@@ -21,14 +21,15 @@ RUN apt update \
     && apt install --no-install-recommends -y nginx \
     && apt install --no-install-recommends -y redis-server \
     && apt install --no-install-recommends -y supervisor \
-    && echo -e "127.0.0.1\tlocalhost" \
-    && echo -e "::1\tlocalhost" \
     && echo done
 
 
 COPY ./redis.conf /etc/redis/redis.conf
 
 COPY ./supervisor.conf /etc/supervisor/conf.d/jiduoduo.conf
+
+COPY ./entrypoint.sh /tmp/entrypoint.sh
+RUN chmod +x /tmp/entrypoint.sh
 
 WORKDIR /jiduoduo_data
 
@@ -37,8 +38,7 @@ COPY --from=pyhton311 /jiduoduo_data/dist /jiduoduo_data/dist
 RUN python -m pip install --no-cache-dir /jiduoduo_data/dist/*.whl && rm -rf /jiduoduo_data/dist
 
 
-
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf", "-n"]
+CMD ["bash", "-c", "/tmp/entrypoint.sh"]
 
 # /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
 
