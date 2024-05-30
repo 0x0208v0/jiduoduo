@@ -1,0 +1,89 @@
+version: '3.1'
+services:
+  webserver:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: 'jiduoduo-webserver'
+    ports:
+      - ${WEBSERVER:-15000}:5000
+    working_dir: /jiduoduo_data
+    volumes:
+      - ./jiduoduo_data:/jiduoduo_data
+    restart: always
+    command: [
+      'gunicorn',
+      '--log-level=INFO',
+      '--capture-output',
+      '--access-logfile','-',
+      '--error-logfile', '-',
+      '-b', '0.0.0.0:5000',
+      '-k', 'gevent',
+      '-w', '2',
+      '-t', '30',
+      'jiduoduo.app:app'
+    ]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10M"
+        max-file: "10"
+
+  worker:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: 'jiduoduo-worker'
+    working_dir: /jiduoduo_data
+    volumes:
+      - ./jiduoduo_data:/jiduoduo_data
+    restart: always
+    command: celery --app jiduoduo.tasks.base.celery worker --loglevel=info
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10M"
+        max-file: "10"
+
+  redis:
+    image: redis:7.2.4
+    container_name: jiduoduo-redis
+    ports:
+      - ${REDIS:-15010}:6379
+    command: redis-server
+    privileged: true
+    restart: always
+
+  redis-commander:
+    image: ghcr.io/joeferner/redis-commander:latest
+    container_name: jiduoduo-redis-commander
+    environment:
+      # https://github.com/joeferner/redis-commander
+      - REDIS_HOSTS=local:redis:6379:0
+      - HTTP_USER=${COMMANDER_ADMIN:-jiduoduo}
+      - HTTP_PASSWORD=${COMMANDER_PASSWORD:-jiduoduo}
+    hostname: redis-commander
+    ports:
+      - ${REDIS_COMMANDER_PORT:-15011}:8081
+    restart: always
+
+  adminer:
+    image: adminer:4.8.1-standalone
+    container_name: jiduoduo-adminer
+    working_dir: /jiduoduo_data
+    environment:
+      - ADMINER_DEFAULT_SERVER=db.sqlite3
+    volumes:
+      # https://github.com/TimWolla/docker-adminer/issues/123
+      - ./jiduoduo_data:/jiduoduo_data
+      - ./login-password-less.php:/var/www/html/plugins-enabled/login-password-less.php
+    restart: always
+    ports:
+      - ${ADMINER_PORT:-15012}:8080
+
+
+# docker-compose pull
+
+# docker-compose build
+
+# docker-compose down && docker-compose up -d
