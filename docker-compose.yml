@@ -1,16 +1,32 @@
-version: '3.1'
+x-jiduoduo-common:
+  &jiduoduo-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: jiduoduo
+  working_dir: /jiduoduo_data
+  volumes:
+    - ./jiduoduo_data:/jiduoduo_data
+  environment:
+    &jiduoduo-common-env
+    SECRET_KEY: ${SECRET_KEY:-jiduoduo}
+    PERMANENT_SESSION_LIFETIME_MINUTES: ${PERMANENT_SESSION_LIFETIME_MINUTES:-120}
+    SQLALCHEMY_DATABASE_URI: ${SQLALCHEMY_DATABASE_URI:-sqlite:///db.sqlite3}
+    CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://redis:6379/0}
+    CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND:-redis://redis:6379/0}
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10M"
+      max-file: "10"
+
 services:
   webserver:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    <<: *jiduoduo-common
     container_name: 'jiduoduo-webserver'
-    ports:
-      - ${WEBSERVER:-15000}:5000
-    working_dir: /jiduoduo_data
-    volumes:
-      - ./jiduoduo_data:/jiduoduo_data
     restart: always
+    ports:
+      - ${WEBSERVER_PORT:-15000}:5000
     command: [
       'gunicorn',
       '--log-level=INFO',
@@ -23,33 +39,18 @@ services:
       '-t', '30',
       'jiduoduo.app:app'
     ]
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10M"
-        max-file: "10"
 
   worker:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    <<: *jiduoduo-common
     container_name: 'jiduoduo-worker'
-    working_dir: /jiduoduo_data
-    volumes:
-      - ./jiduoduo_data:/jiduoduo_data
     restart: always
     command: celery --app jiduoduo.tasks.base.celery worker --loglevel=info
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10M"
-        max-file: "10"
 
   redis:
     image: redis:7.2.4
     container_name: jiduoduo-redis
     ports:
-      - ${REDIS:-15010}:6379
+      - ${REDIS_PORT:-15010}:6379
     command: redis-server
     privileged: true
     restart: always
