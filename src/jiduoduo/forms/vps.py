@@ -13,7 +13,7 @@ class VPSForm(BaseForm):
             DataRequired(message='VPS地址必填'),
         ],
         render_kw={
-            'placeholder': '如：231.3.43.85',
+            'placeholder': '如：231.3.43.85 或者 2a04:bdc7:100:3ce2::df63:1234',
         }
     )
     name = StringField(

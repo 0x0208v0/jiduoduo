@@ -165,3 +165,5 @@ jiduoduo_data/
 *.sqlite3
 *.sqlite3-journal@
 *.db
+.DS_Store
+

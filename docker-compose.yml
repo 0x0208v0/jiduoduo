@@ -19,6 +19,8 @@ x-jiduoduo-common:
     options:
       max-size: "10M"
       max-file: "10"
+  networks:
+    - jiduoduo-network
 
 services:
   webserver:
@@ -54,6 +56,8 @@ services:
     command: redis-server
     privileged: true
     restart: always
+    networks:
+      - jiduoduo-network
 
   redis-commander:
     image: ghcr.io/joeferner/redis-commander:latest
@@ -67,6 +71,8 @@ services:
     ports:
       - ${REDIS_COMMANDER_PORT:-15011}:8081
     restart: always
+    networks:
+      - jiduoduo-network
 
   adminer:
     image: adminer:4.8.1-standalone
@@ -81,10 +87,26 @@ services:
     restart: always
     ports:
       - ${ADMINER_PORT:-15012}:8080
+    networks:
+      - jiduoduo-network
 
+
+networks:
+  jiduoduo-network:
+    name: jiduoduo-network
+    enable_ipv6: true
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: fd00:db8:1234::/64
+          gateway: fd00:db8:1234::1
 
 # docker-compose pull
 
 # docker-compose build
 
 # docker-compose down && docker-compose up -d
+
+# only webserver and worker
+# docker-compose down webserver worker && docker-compose up webserver worker -d
