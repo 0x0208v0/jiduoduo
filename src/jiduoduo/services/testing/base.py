@@ -24,6 +24,16 @@ class TestingResult(BaseModel):
     result: str = Field('success')
 
 
+def remove_x00(obj):
+    if isinstance(obj, list):
+        return [remove_x00(item) for item in obj]
+    if isinstance(obj, dict):
+        return {k: remove_x00(v) for k, v in obj.items()}
+    if isinstance(obj, str):
+        return obj.replace('\x00', '')
+    return obj
+
+
 class TestingService(ABC):
     testing_type: TestingType
     testing_params_cls: type[TestingParams] = TestingParams
@@ -62,7 +72,7 @@ class TestingService(ABC):
             from jiduoduo.models import db
             with app.app_context():
                 session = db.session.object_session(testing)
-                testing.result = r
+                testing.result = remove_x00(r)
                 session.add(testing)
                 session.commit()
 
@@ -74,10 +84,10 @@ class TestingService(ABC):
             )
 
             if result.is_success:
-                testing.set_state_success(result=result.result, commit=not self.dry_run)
+                testing.set_state_success(result=remove_x00(result.result), commit=not self.dry_run)
 
             else:
-                testing.set_state_failed(result=result.result, commit=not self.dry_run)
+                testing.set_state_failed(result=remove_x00(result.result), commit=not self.dry_run)
 
         except Exception as e:
             result = f'error: {e}'
