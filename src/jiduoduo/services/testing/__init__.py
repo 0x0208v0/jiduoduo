@@ -9,6 +9,7 @@ from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingService
 from jiduoduo.services.testing.bash_icu_gb5 import BashICUGB5TestingService
 from jiduoduo.services.testing.check_unlock_media import CheckUnlockMediaTestingService
+from jiduoduo.services.testing.dd import DDTestingService
 from jiduoduo.services.testing.df_h import DFHTestingService
 from jiduoduo.services.testing.free_h import FREEHTestingService
 from jiduoduo.services.testing.ip_check_place import IPCheckPlaceTestingService
@@ -16,6 +17,9 @@ from jiduoduo.services.testing.ip_info_io import IPInfoIOTestingService
 from jiduoduo.services.testing.ip_sb_4 import IPSB4TestingService
 from jiduoduo.services.testing.ip_sb_6 import IPSB6TestingService
 from jiduoduo.services.testing.login import LoginTestingService
+from jiduoduo.services.testing.memory_check import MemoryCheckTestingService
+from jiduoduo.services.testing.nws_global import NWSGlobalDefaultTestingService
+from jiduoduo.services.testing.region_restriction_check import RegionRestrictionCheckTestingService
 from jiduoduo.services.testing.spiritlhls_ecs import SpiritLHLSECSTestingService
 from jiduoduo.services.testing.spiritlhls_ecs_speed import SpiritLHLSECSSpeedTestingService
 from jiduoduo.services.testing.yabs_basic_sys_info import YABSBasicSysInfoTestingService
@@ -27,14 +31,18 @@ logger = logging.getLogger(__name__)
 
 TESTING_SERVICE_CLS_DICT = {
     TestingType.LOGIN: LoginTestingService,
+    TestingType.MEMORY_CHECK: MemoryCheckTestingService,
     TestingType.SPIRITLHLS_ECS: SpiritLHLSECSTestingService,
     TestingType.SPIRITLHLS_ECS_SPEED: SpiritLHLSECSSpeedTestingService,
+    TestingType.NWS_GLOBAL: NWSGlobalDefaultTestingService,
     TestingType.BASH_ICU_GB5: BashICUGB5TestingService,
     TestingType.DF_H: DFHTestingService,
+    TestingType.DD: DDTestingService,
     TestingType.FREE_H: DFHTestingService,
     # IP 相关
     TestingType.BACKTRACE: BacktraceTestingService,
     TestingType.IP_CHECK_PLACE: IPCheckPlaceTestingService,
+    TestingType.REGION_RESTRICTION_CHECK: RegionRestrictionCheckTestingService,
     TestingType.CHECK_UNLOCK_MEDIA: CheckUnlockMediaTestingService,
     TestingType.IP_SB_4: IPSB4TestingService,
     TestingType.IP_SB_6: IPSB6TestingService,
