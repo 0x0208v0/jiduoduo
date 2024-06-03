@@ -53,14 +53,18 @@ TESTING_STATE_EMOJI = {
 
 class TestingType(StrEnum):
     LOGIN = 'login'
+    MEMORY_CHECK = 'memory_check'
     SPIRITLHLS_ECS = 'spiritlhls_ecs'
     SPIRITLHLS_ECS_SPEED = 'spiritlhls_ecs_speed'
+    NWS_GLOBAL = 'nws_global'
     BASH_ICU_GB5 = 'bash_icu_gb5'
     DF_H = 'df_h'
+    DD = 'dd'
     FREE_H = 'free_h'
     # IP 相关
     BACKTRACE = 'backtrace'
     IP_CHECK_PLACE = 'ip_check_place'
+    REGION_RESTRICTION_CHECK = 'region_restriction_check'
     CHECK_UNLOCK_MEDIA = 'check_unlock_media'
     IP_SB_4 = 'ip_sb_4'
     IP_SB_6 = 'ip_sb_6'
@@ -76,14 +80,18 @@ UNKNOWN_TESTING_TYPE_ZH = '未知测试类型'
 
 TESTING_TYPE_ZH = {
     TestingType.LOGIN: '登陆测试',
+    TestingType.MEMORY_CHECK: '超售检查',
     TestingType.SPIRITLHLS_ECS: 'spiritLHLS ecs 融合怪',
     TestingType.SPIRITLHLS_ECS_SPEED: 'spiritLHLS ecsspeed 自动更新测速服务器节点列表的网络基准测试脚本',
+    TestingType.NWS_GLOBAL: '网络测试专项（全球）',
     TestingType.BASH_ICU_GB5: 'bash.icu GB5 测试',
     TestingType.DF_H: '文件系统磁盘空间',
+    TestingType.DD: '硬盘测试专项',
     TestingType.FREE_H: '系统内存使用情况',
     # IP 相关
     TestingType.BACKTRACE: '三网回程路由测试',
     TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
+    TestingType.REGION_RESTRICTION_CHECK: '流媒体解锁测试专项',
     TestingType.CHECK_UNLOCK_MEDIA: '流媒体平台及游戏区域限制测试',
     TestingType.IP_SB_4: 'ip.sb IPv4 出口测试',
     TestingType.IP_SB_6: 'ip.sb IPv6 出口测试',
