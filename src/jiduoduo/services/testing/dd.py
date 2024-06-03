@@ -10,7 +10,9 @@ from jiduoduo.services.testing.base import TestingService
 
 
 class DDTestingParams(TestingParams):
-    timeout: int = Field(10)  # seconds
+    # 有的NAT鸡速度巨慢，需要227秒以上，速度1.2MB/s
+    # 所以延长超时时间
+    timeout: int = Field(60 * 5)  # seconds
 
 
 class DDTestingResult(TestingResult):
