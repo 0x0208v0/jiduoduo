@@ -10,11 +10,11 @@
 {% endblock %}
 
 {% block title %}
-  鸡多多 | MJJ的VPS神器
+  鸡多多 | 开源VPS测试平台
 {% endblock %}
 
 {% block description %}
-  鸡多多，VPS管理工具，VPS测试工具
+  鸡多多；开源VPS测试平台；VPS管理工具；VPS测试工具
 {% endblock %}
 
 
@@ -26,12 +26,18 @@
       <div class="container-fluid" style="max-width: 666px;">
         <nav class="navbar bg-body-tertiary mb-4">
           <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">
-              <img src="{{ url_for('static', filename='chickens-chick-svgrepo-com.svg') }}"
-                   width="21" height="21" alt="icon"
-              />
-              <span>鸡多多</span>
-            </a>
+            <div>
+              <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <img src="{{ url_for('static', filename='chickens-chick-svgrepo-com.svg') }}"
+                     width="21" height="21" alt="icon"
+                />
+                <span>
+                  鸡多多 | 开源VPS测试平台
+                  <a href="https://github.com/0x0208v0/jiduoduo" target="_blank"> Github </a>
+                </span>
+              </a>
+            </div>
+
             {% if current_user.is_authenticated %}
               <a href="{{ url_for('user.setting') }}">
                 <img src="{{ url_for('static', filename='setting-two.svg') }}"
