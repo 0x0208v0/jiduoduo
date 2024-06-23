@@ -78,6 +78,20 @@ def detail(id: str):
     )
 
 
+@blueprint.get('/api/testing/<string:id>')
+@login_required
+def api_detail(id: str):
+    testing = Testing.get(id)
+    if not testing or testing.user_id != current_user.id:
+        return {
+            'err': 'not found or not authorized',
+        }
+
+    return {
+        'data': testing.to_dict(),
+    }
+
+
 @blueprint.route('/testing/<string:id>/rerun', methods=['GET', 'POST'])
 def rerun(id: str):
     testing = Testing.get(id)

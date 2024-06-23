@@ -1,4 +1,5 @@
 import datetime
+import json
 import uuid
 from datetime import datetime
 from typing import Self
@@ -167,10 +168,10 @@ class SqlalchemyBaseModel(DeclarativeBase):
     @classmethod
     def count(cls, *where) -> int:
         subquery = cls.build_stmt(*where).subquery()
-        stmt = select(func.count(subquery.c.id).label('cnt'))
+        stmt = select(func.count(subquery.c.id).label('count'))
         result = db.session.execute(stmt)
-        for (cnt,) in result:
-            return cnt
+        for (count,) in result:
+            return count
 
     @classmethod
     def get_list(
@@ -203,6 +204,20 @@ class SqlalchemyBaseModel(DeclarativeBase):
         result = db.session.execute(stmt)
         id_list = [(id, name) for (id, name) in result]
         return id_list
+
+    def to_dict(self) -> dict:
+        return {'id': self.id}
+
+    def to_json(self) -> str:
+
+        class MyJsonEncoder(json.JSONEncoder):
+            def default(self, field):
+                if isinstance(field, uuid.UUID):
+                    return str(field)
+                else:
+                    return super().default(field)
+
+        return json.dumps(self.to_dict(), cls=MyJsonEncoder)
 
 
 db = SQLAlchemy(

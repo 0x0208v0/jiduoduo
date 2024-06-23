@@ -202,6 +202,15 @@ class Testing(BaseModel, UserMixin):
     def duration(self) -> timedelta:
         return self.ended_at - self.started_at
 
+    def to_dict(self) -> dict:
+        return {
+            'id': self.id,
+            'state': self.state,
+            'is_done': self.is_done,
+            'result': self.result,
+            'display_state_emoji_with_zh': f'{self.display_state_emoji} {self.display_state_zh}'
+        }
+
     def set_result(self, result: str | None, commit: bool = True):
         if result is not None:
             self.result = result

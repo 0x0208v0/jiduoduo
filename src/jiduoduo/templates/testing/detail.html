@@ -48,9 +48,7 @@
             当前状态:
           </div>
           <div class="d-flex align-items-end" style="height: 40px;">
-            <span>
-              {{ testing.display_state_emoji }} {{ testing.display_state_zh }}
-            </span>
+            <span id="state">{{ testing.display_state_emoji }} {{ testing.display_state_zh }}</span>
 
             <a class="icon-link link-primary ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                href="{{ url_for('testing.rerun', id=testing.id) }}"
@@ -84,11 +82,7 @@
 
 {% block terminal %}
 
-  {% if testing.is_done or (testing.is_running and testing.result) %}
-
-    <div id="terminal" style="width: 95%;"></div>
-
-  {% endif %}
+  <div id="terminal" style="width: 95%;"></div>
 
 {% endblock %}
 
@@ -129,37 +123,65 @@
   <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
 
-
   <script>
-    {% if not testing.is_done %}
-      setTimeout(() => {
-        window.location.reload();
-      }, 5000);
-    {% endif %}
+    const terminal = new Terminal({
+      convertEol: true,
+      disableStdin: true,
+      cursorBlink: false,
+      rows: 50,
+      fontFamily: 'monospace',
+      screenReaderMode: true,
+    });
 
-    {% if testing.is_done or (testing.is_running and testing.result) %}
-      const terminal = new Terminal({
-        convertEol: true,
-        disableStdin: true,
-        cursorBlink: false,
-        rows: 50,
-        fontFamily: 'monospace',
-        screenReaderMode: true,
-      });
-      const terminalContainer = document.getElementById('terminal');
-      terminal.open(terminalContainer);
-      terminal.write(`{{ testing.result }}`)
+    const terminalContainer = document.getElementById('terminal');
+    terminal.open(terminalContainer);
 
+    let testing = {{ testing.to_json() | safe }};
 
-      // https://github.com/xtermjs/xterm.js/issues/2499
-      const fitAddon = new FitAddon.FitAddon();
-      terminal.loadAddon(fitAddon);
-      fitAddon.fit();
+    const state = document.getElementById('state')
 
-      // setTimeout(() => {
-      //   terminal.scrollToTop();
-      // }, 10);
-    {% endif %}
+    function updateTerminal() {
+      terminal.clear();
+      terminal.write(testing.result)
+    }
+
+    function updateState() {
+      state.textContent = testing.display_state_emoji_with_zh;
+    }
+
+    updateState();
+    updateTerminal()
+
+    // https://github.com/xtermjs/xterm.js/issues/2499
+    const fitAddon = new FitAddon.FitAddon();
+    terminal.loadAddon(fitAddon);
+    fitAddon.fit();
+
+    const intervalID = setInterval(() => {
+      if (testing.is_done) {
+        clearInterval(intervalID);
+        return
+      }
+
+      axios.get(`{{ url_for('testing.api_detail', id=testing.id) }}`)
+          .then(function(response) {
+            // handle success
+            testing = response.data.data;
+            updateState();
+            updateTerminal();
+
+          })
+          .catch(function(error) {
+            // handle error
+            console.log(error);
+
+          })
+          .finally(function() {
+            // always executed
+
+          });
+    }, 1000);
+
   </script>
 
 {% endblock %}
