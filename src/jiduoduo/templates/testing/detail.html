@@ -149,8 +149,8 @@
       state.textContent = testing.display_state_emoji_with_zh;
     }
 
-    updateState();
     updateTerminal()
+    updateState();
 
     // https://github.com/xtermjs/xterm.js/issues/2499
     const fitAddon = new FitAddon.FitAddon();
@@ -167,8 +167,8 @@
           .then(function(response) {
             // handle success
             testing = response.data.data;
-            updateState();
             updateTerminal();
+            updateState();
 
           })
           .catch(function(error) {
@@ -180,7 +180,7 @@
             // always executed
 
           });
-    }, 1000);
+    }, 1500);
 
   </script>
 

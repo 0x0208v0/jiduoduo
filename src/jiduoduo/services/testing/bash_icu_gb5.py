@@ -1,4 +1,3 @@
-import io
 from typing import Callable
 
 from pydantic import Field
@@ -8,6 +7,7 @@ from jiduoduo.models.testing import TestingType
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
+from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class BashICUGB5TestingParams(TestingParams):
@@ -29,23 +29,15 @@ class BashICUGB5TestingService(TestingService):
             params: BashICUGB5TestingParams,
             flush_callback: Callable[[str], None],
     ) -> BashICUGB5TestingResult:
+        # https://github.com/i-abc/gb5
+
         command = 'bash <(curl -sL bash.icu/gb5)'
-
-        class StreamLogger:
-            def __init__(self):
-                self.buffer = io.StringIO()
-
-            def write(self, message):
-                self.buffer.write(message)
-
-            def flush(self):
-                flush_callback(self.buffer.getvalue())
 
         run_result = vps.run(
             command,
             timeout=params.timeout,
             warn=True,
-            out_stream=StreamLogger(),
+            out_stream=StreamFlusher(flush_callback=flush_callback),
         )
 
         return BashICUGB5TestingResult(result=str(run_result))

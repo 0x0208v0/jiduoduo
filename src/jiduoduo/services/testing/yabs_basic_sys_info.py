@@ -28,8 +28,12 @@ class YABSBasicSysInfoTestingService(TestingService):
             params: YABSBasicSysInfoTestingParams,
             flush_callback: Callable[[str], None],
     ) -> YABSBasicSysInfoTestingResult:
+        # https://github.com/masonr/yet-another-bench-script
+
+        command = 'curl -sL yabs.sh | bash -s -- -dign'
+
         run_result = vps.run(
-            'curl -sL yabs.sh | bash -s -- -dign',
+            command,
             timeout=params.timeout,
             warn=True,
         )

@@ -1,4 +1,3 @@
-import io
 import time
 from typing import Callable
 
@@ -9,6 +8,7 @@ from jiduoduo.models.testing import TestingType
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
+from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class IPCheckPlaceTestingParams(TestingParams):
@@ -30,17 +30,9 @@ class IPCheckPlaceTestingService(TestingService):
             params: IPCheckPlaceTestingParams,
             flush_callback: Callable[[str], None],
     ) -> IPCheckPlaceTestingResult:
+        # https://github.com/xykt/IPQuality
+
         command = 'bash <(curl -sL IP.Check.Place)'
-
-        class StreamLogger:
-            def __init__(self):
-                self.buffer = io.StringIO()
-
-            def write(self, message):
-                self.buffer.write(message)
-
-            def flush(self):
-                flush_callback(self.buffer.getvalue())
 
         run_result = vps.run(
             command,
@@ -48,7 +40,7 @@ class IPCheckPlaceTestingService(TestingService):
             hide=True,
             warn=True,
             pty=True,
-            out_stream=StreamLogger(),
+            out_stream=StreamFlusher(flush_callback=flush_callback),
         )
         time.sleep(1)
         return IPCheckPlaceTestingResult(result=str(run_result))

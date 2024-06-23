@@ -1,4 +1,3 @@
-import io
 import time
 from typing import Callable
 
@@ -9,6 +8,7 @@ from jiduoduo.models.testing import TestingType
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
+from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class CheckUnlockMediaTestingParams(TestingParams):
@@ -30,17 +30,9 @@ class CheckUnlockMediaTestingService(TestingService):
             params: CheckUnlockMediaTestingParams,
             flush_callback: Callable[[str], None],
     ) -> CheckUnlockMediaTestingResult:
+        # https://github.com/lmc999/RegionRestrictionCheck
+
         command = "bash <(curl -L -s check.unlock.media) <<< '4'"
-
-        class StreamLogger:
-            def __init__(self):
-                self.buffer = io.StringIO()
-
-            def write(self, message):
-                self.buffer.write(message)
-
-            def flush(self):
-                flush_callback(self.buffer.getvalue())
 
         run_result = vps.run(
             command,
@@ -48,7 +40,7 @@ class CheckUnlockMediaTestingService(TestingService):
             hide=True,
             warn=True,
             pty=True,
-            out_stream=StreamLogger(),
+            out_stream=StreamFlusher(flush_callback=flush_callback),
         )
         time.sleep(1)
         return CheckUnlockMediaTestingResult(result=str(run_result))

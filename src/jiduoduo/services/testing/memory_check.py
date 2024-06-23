@@ -28,8 +28,12 @@ class MemoryCheckTestingService(TestingService):
             params: MemoryCheckTestingParams,
             flush_callback: Callable[[str], None],
     ) -> MemoryCheckTestingResult:
+        # https://github.com/uselibrary/memoryCheck
+
+        command = 'curl https://raw.githubusercontent.com/uselibrary/memoryCheck/main/memoryCheck.sh | bash'
+
         run_result = vps.run(
-            'curl https://raw.githubusercontent.com/uselibrary/memoryCheck/main/memoryCheck.sh | bash',
+            command,
             timeout=params.timeout,
             warn=True,
         )

@@ -1,4 +1,3 @@
-import io
 from typing import Callable
 
 from invoke import Responder
@@ -9,6 +8,7 @@ from jiduoduo.models.testing import TestingType
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
+from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class SpiritLHLSECSSpeedTestingParams(TestingParams):
@@ -30,17 +30,9 @@ class SpiritLHLSECSSpeedTestingService(TestingService):
             params: SpiritLHLSECSSpeedTestingParams,
             flush_callback: Callable[[str], None],
     ) -> SpiritLHLSECSSpeedTestingResult:
+        # https://github.com/spiritLHLS/ecsspeed
+
         command = 'bash <(wget -qO- bash.spiritlhl.net/ecs-net)'
-
-        class StreamLogger:
-            def __init__(self):
-                self.buffer = io.StringIO()
-
-            def write(self, message):
-                self.buffer.write(message)
-
-            def flush(self):
-                flush_callback(self.buffer.getvalue())
 
         run_result = vps.run(
             command,
@@ -52,7 +44,7 @@ class SpiritLHLSECSSpeedTestingService(TestingService):
                 Responder(pattern=r'Y/n', response='Y\n'),
                 Responder(pattern=r'请输入数字', response='1\n'),
             ],
-            out_stream=StreamLogger(),
+            out_stream=StreamFlusher(flush_callback=flush_callback),
         )
 
         return SpiritLHLSECSSpeedTestingResult(result=str(run_result))

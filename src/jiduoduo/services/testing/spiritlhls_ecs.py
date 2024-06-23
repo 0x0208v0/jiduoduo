@@ -1,4 +1,3 @@
-import io
 from typing import Callable
 
 from invoke import Responder
@@ -9,6 +8,7 @@ from jiduoduo.models.testing import TestingType
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
+from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class SpiritLHLSECSTestingParams(TestingParams):
@@ -30,17 +30,9 @@ class SpiritLHLSECSTestingService(TestingService):
             params: SpiritLHLSECSTestingParams,
             flush_callback: Callable[[str], None],
     ) -> SpiritLHLSECSTestingResult:
+        # https://github.com/spiritLHLS/ecs
+
         command = 'curl -L https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh -o ecs.sh && chmod +x ecs.sh && bash ecs.sh -m 1'
-
-        class StreamLogger:
-            def __init__(self):
-                self.buffer = io.StringIO()
-
-            def write(self, message):
-                self.buffer.write(message)
-
-            def flush(self):
-                flush_callback(self.buffer.getvalue())
 
         run_result = vps.run(
             command,
@@ -51,7 +43,7 @@ class SpiritLHLSECSTestingService(TestingService):
                 Responder(pattern=r'[y]/n', response='y\n'),
                 Responder(pattern=r'Y/n', response='Y\n'),
             ],
-            out_stream=StreamLogger(),
+            out_stream=StreamFlusher(flush_callback=flush_callback),
         )
 
         return SpiritLHLSECSTestingResult(result=str(run_result))

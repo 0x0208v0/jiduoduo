@@ -1,4 +1,3 @@
-import io
 from typing import Callable
 
 from pydantic import Field
@@ -8,6 +7,7 @@ from jiduoduo.models.testing import TestingType
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
+from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class YABSDefaultTestingParams(TestingParams):
@@ -29,23 +29,15 @@ class YABSDefaultTestingService(TestingService):
             params: YABSDefaultTestingParams,
             flush_callback: Callable[[str], None],
     ) -> YABSDefaultTestingResult:
+        # https://github.com/masonr/yet-another-bench-script
+
         command = 'curl -sL yabs.sh | bash'
-
-        class StreamLogger:
-            def __init__(self):
-                self.buffer = io.StringIO()
-
-            def write(self, message):
-                self.buffer.write(message)
-
-            def flush(self):
-                flush_callback(self.buffer.getvalue())
 
         run_result = vps.run(
             command,
             timeout=params.timeout,
             warn=True,
-            out_stream=StreamLogger(),
+            out_stream=StreamFlusher(flush_callback=flush_callback),
         )
 
         return YABSDefaultTestingResult(result=str(run_result))

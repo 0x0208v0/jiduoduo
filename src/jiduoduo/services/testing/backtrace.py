@@ -28,8 +28,12 @@ class BacktraceTestingService(TestingService):
             params: BacktraceTestingParams,
             flush_callback: Callable[[str], None],
     ) -> BacktraceTestingResult:
+        # https://github.com/zhanghanyun/backtrace
+
+        command = 'curl https://raw.githubusercontent.com/zhanghanyun/backtrace/main/install.sh -sSf | sh'
+
         run_result = vps.run(
-            'curl https://raw.githubusercontent.com/zhanghanyun/backtrace/main/install.sh -sSf | sh',
+            command,
             timeout=params.timeout,
             warn=True,
         )

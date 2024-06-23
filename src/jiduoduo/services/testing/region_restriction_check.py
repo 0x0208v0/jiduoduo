@@ -1,4 +1,3 @@
-import io
 import time
 from typing import Callable
 
@@ -9,6 +8,7 @@ from jiduoduo.models.testing import TestingType
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
+from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class RegionRestrictionCheckTestingParams(TestingParams):
@@ -32,23 +32,13 @@ class RegionRestrictionCheckTestingService(TestingService):
     ) -> RegionRestrictionCheckTestingResult:
         command = 'bash <(curl -L -s https://github.com/1-stream/RegionRestrictionCheck/raw/main/check.sh)'
 
-        class StreamLogger:
-            def __init__(self):
-                self.buffer = io.StringIO()
-
-            def write(self, message):
-                self.buffer.write(message)
-
-            def flush(self):
-                flush_callback(self.buffer.getvalue())
-
         run_result = vps.run(
             command,
             timeout=params.timeout,
             hide=True,
             warn=True,
             pty=True,
-            out_stream=StreamLogger(),
+            out_stream=StreamFlusher(flush_callback=flush_callback),
         )
         time.sleep(1)
         return RegionRestrictionCheckTestingResult(result=str(run_result))
