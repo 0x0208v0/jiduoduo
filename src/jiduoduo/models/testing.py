@@ -7,6 +7,7 @@ from enum import StrEnum
 from functools import cached_property
 from typing import Self
 
+import pyte
 from flask_login import current_user
 from pydantic import BaseModel as PydanticBaseModel
 from sqlalchemy import DateTime
@@ -202,12 +203,28 @@ class Testing(BaseModel, UserMixin):
     def duration(self) -> timedelta:
         return self.ended_at - self.started_at
 
+    @cached_property
+    def result_rows(self) -> int:
+        columns = 1000
+        lines = self.result.count('\n') + 1
+        screen = pyte.Screen(columns, lines)
+        stream = pyte.Stream(screen)
+        stream.feed(self.result)
+        for line in screen.display[::-1]:
+            if line.split():
+                break
+            else:
+                lines -= 1
+                continue
+        return lines + 1  # add one empty line
+
     def to_dict(self) -> dict:
         return {
             'id': self.id,
             'state': self.state,
             'is_done': self.is_done,
             'result': self.result,
+            'result_rows': self.result_rows,
             'display_state_emoji_with_zh': f'{self.display_state_emoji} {self.display_state_zh}'
         }
 

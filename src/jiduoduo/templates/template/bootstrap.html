@@ -9,7 +9,6 @@
     {% block google_tag %}
     {% endblock %}
 
-
     <link rel="icon" href="{% block icon %}{% endblock %}">
     <title>{% block title %}{% endblock %}</title>
 
@@ -17,8 +16,6 @@
       <link href="https://cdn.staticfile.net/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     {% endblock styles %}
   </head>
-
-
 
   <body{% block body_attribs %}{% endblock %}>
   {% block body %}
@@ -34,6 +31,7 @@
     {% block scripts %}
       <script src="https://cdn.staticfile.net/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
       <script src="https://cdn.staticfile.net/axios/1.6.5/axios.min.js"></script>
+      <script src="https://cdn.staticfile.net/html2canvas/1.4.1/html2canvas.min.js"></script>
     {% endblock scripts %}
   {% endblock body %}
   </body>

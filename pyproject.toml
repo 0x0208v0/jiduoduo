@@ -28,6 +28,7 @@ dependencies = [
     'pydantic==2.7.1',
     'pydantic-settings==2.2.1',
     'filelock==3.14.0',
+    'pyte==0.8.2',
 ]
 
 [project.scripts]

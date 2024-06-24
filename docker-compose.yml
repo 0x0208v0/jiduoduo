@@ -110,3 +110,4 @@ networks:
 
 # only webserver and worker
 # docker-compose down webserver worker && docker-compose up webserver worker -d
+# git pull && docker-compose build && docker-compose down webserver worker && docker-compose up webserver worker -d

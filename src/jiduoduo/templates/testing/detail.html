@@ -7,27 +7,20 @@
 
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          <div>
-            <img src="{{ url_for('static', filename='data-sheet.svg') }}" alt="type">
-            测试类型：
-          </div>
+          <div><img src="{{ url_for('static', filename='data-sheet.svg') }}" alt="type">测试类型：</div>
           <div class="d-flex align-items-end" style="height: 40px;">
             <span>{{ testing.display_type_zh }}</span>
             <a class="icon-link link-danger ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                href="{{ url_for('testing.delete', id=testing.id) }}"
             >
-              <img src="{{ url_for('static', filename='delete.svg') }}" alt="delete testing">
-              删除测试
+              <img src="{{ url_for('static', filename='delete.svg') }}" alt="delete testing">删除测试
             </a>
           </div>
 
         </li>
 
         <li class="list-group-item">
-          <div>
-            <img src="{{ url_for('static', filename='new-computer.svg') }}" alt="vps">
-            VPS:
-          </div>
+          <div><img src="{{ url_for('static', filename='new-computer.svg') }}" alt="vps">VPS:</div>
           <div>
             {% if testing.vps %}
               <a href="{{ url_for('vps.detail', id=testing.vps.id) }}"
@@ -43,21 +36,25 @@
 
 
         <li class="list-group-item">
-          <div>
-            <img src="{{ url_for('static', filename='lightning.svg') }}" alt="state">
-            当前状态:
-          </div>
+          <div><img src="{{ url_for('static', filename='lightning.svg') }}" alt="state">当前状态:</div>
           <div class="d-flex align-items-end" style="height: 40px;">
             <span id="state">{{ testing.display_state_emoji }} {{ testing.display_state_zh }}</span>
 
             <a class="icon-link link-primary ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                href="{{ url_for('testing.rerun', id=testing.id) }}"
             >
-              <img src="{{ url_for('static', filename='replay-music.svg') }}" alt="rerun">
-              重跑测试
+              <img src="{{ url_for('static', filename='replay-music.svg') }}" alt="rerun">重跑测试
             </a>
           </div>
+        </li>
 
+        <li class="list-group-item">
+          <a class="icon-link link-primary ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+             href="#"
+             id="download"
+          >
+            <img src="{{ url_for('static', filename='download.svg') }}" alt="rerun">下载测试结果
+          </a>
         </li>
 
         <!--li class="list-group-item">
@@ -124,24 +121,27 @@
   <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
 
   <script>
+    let testing = {{ testing.to_json() | safe }};
+
     const terminal = new Terminal({
       convertEol: true,
       disableStdin: true,
       cursorBlink: false,
-      rows: 50,
+      rows: testing.result_rows,
       fontFamily: 'monospace',
       screenReaderMode: true,
+      cursorStyle: null,
     });
 
     const terminalContainer = document.getElementById('terminal');
     terminal.open(terminalContainer);
 
-    let testing = {{ testing.to_json() | safe }};
 
     const state = document.getElementById('state')
 
     function updateTerminal() {
       terminal.clear();
+      terminal.resize(terminal.cols, testing.result_rows);
       terminal.write(testing.result)
     }
 
@@ -181,6 +181,30 @@
 
           });
     }, 1500);
+
+    const xterm_resize_ob = new ResizeObserver(function(entries) {
+      // since we are observing only a single element, so we access the first element in entries array
+      try {
+        fitAddon && fitAddon.fit();
+        terminal.resize(terminal.cols, testing.result_rows);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    // start observing for resize
+    xterm_resize_ob.observe(terminalContainer);
+
+    document.getElementById('download').addEventListener('click', () => {
+      html2canvas(terminalContainer, {scrollY: -window.scrollY}).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = imgData;
+        link.download = 'result.png';
+        link.click();
+        link.remove();
+      })
+    });
 
   </script>
 
