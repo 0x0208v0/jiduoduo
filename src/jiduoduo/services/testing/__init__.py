@@ -7,7 +7,8 @@ from jiduoduo.models import VPS
 from jiduoduo.services.testing.backtrace import BacktraceTestingService
 from jiduoduo.services.testing.base import TestingParams
 from jiduoduo.services.testing.base import TestingService
-from jiduoduo.services.testing.bash_icu_gb5 import BashICUGB5TestingService
+from jiduoduo.services.testing.bash_icu_gb5 import BashIcuGB5TestingService
+from jiduoduo.services.testing.bash_icu_speed_test import BashIcuSpeedTestTestingService
 from jiduoduo.services.testing.check_unlock_media import CheckUnlockMediaTestingService
 from jiduoduo.services.testing.dd import DDTestingService
 from jiduoduo.services.testing.df_h import DFHTestingService
@@ -35,7 +36,8 @@ TESTING_SERVICE_CLS_DICT = {
     TestingType.SPIRITLHLS_ECS: SpiritLHLSECSTestingService,
     TestingType.SPIRITLHLS_ECS_SPEED: SpiritLHLSECSSpeedTestingService,
     TestingType.NWS_GLOBAL: NWSGlobalDefaultTestingService,
-    TestingType.BASH_ICU_GB5: BashICUGB5TestingService,
+    TestingType.BASH_ICU_GB5: BashIcuGB5TestingService,
+    TestingType.BASH_ICU_SPEED_TEST: BashIcuSpeedTestTestingService,
     TestingType.DF_H: DFHTestingService,
     TestingType.DD: DDTestingService,
     TestingType.FREE_H: DFHTestingService,

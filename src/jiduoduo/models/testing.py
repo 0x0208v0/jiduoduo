@@ -59,6 +59,7 @@ class TestingType(StrEnum):
     SPIRITLHLS_ECS_SPEED = 'spiritlhls_ecs_speed'
     NWS_GLOBAL = 'nws_global'
     BASH_ICU_GB5 = 'bash_icu_gb5'
+    BASH_ICU_SPEED_TEST = 'bash_icu_speed_test'
     DF_H = 'df_h'
     DD = 'dd'
     FREE_H = 'free_h'
@@ -86,6 +87,7 @@ TESTING_TYPE_ZH = {
     TestingType.SPIRITLHLS_ECS_SPEED: 'spiritLHLS ecsspeed 自动更新测速服务器节点列表的网络基准测试脚本',
     TestingType.NWS_GLOBAL: '网络测试专项（全球）',
     TestingType.BASH_ICU_GB5: 'bash.icu GB5 测试',
+    TestingType.BASH_ICU_SPEED_TEST: 'bash.icu 多功能测速脚本',
     TestingType.DF_H: '文件系统磁盘空间',
     TestingType.DD: '硬盘测试专项',
     TestingType.FREE_H: '系统内存使用情况',
