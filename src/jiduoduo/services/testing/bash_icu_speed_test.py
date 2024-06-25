@@ -38,6 +38,7 @@ class BashIcuSpeedTestTestingService(TestingService):
             command,
             timeout=params.timeout,
             warn=True,
+            pty=True,
             watchers=[
                 Responder(pattern=r'请输入', response='1\n'),
             ],
