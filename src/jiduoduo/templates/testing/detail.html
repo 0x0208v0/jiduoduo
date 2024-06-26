@@ -54,7 +54,7 @@
             <span id="state">{{ testing.display_state_emoji }} {{ testing.display_state_zh }}</span>
 
             {% if  current_user.is_authenticated %}
-              <span class="ms-5 me-5 form-check form-switch">
+              <span class="ms-5 form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch"
                        id="public" {{ 'checked' if testing.is_public else '' }}
                 >
@@ -62,7 +62,7 @@
               </span>
             {% endif %}
 
-            <a class="icon-link link-primary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+            <a class="ms-5 icon-link link-primary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                href="#"
                id="download"
             >
