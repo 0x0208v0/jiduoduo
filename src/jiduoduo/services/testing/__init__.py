@@ -19,6 +19,7 @@ from jiduoduo.services.testing.ip_sb_4 import IPSB4TestingService
 from jiduoduo.services.testing.ip_sb_6 import IPSB6TestingService
 from jiduoduo.services.testing.login import LoginTestingService
 from jiduoduo.services.testing.memory_check import MemoryCheckTestingService
+from jiduoduo.services.testing.next_trace import NextTraceTestingService
 from jiduoduo.services.testing.nws_global import NWSGlobalDefaultTestingService
 from jiduoduo.services.testing.region_restriction_check import RegionRestrictionCheckTestingService
 from jiduoduo.services.testing.spiritlhls_ecs import SpiritLHLSECSTestingService
@@ -42,6 +43,7 @@ TESTING_SERVICE_CLS_DICT = {
     TestingType.DD: DDTestingService,
     TestingType.FREE_H: DFHTestingService,
     # IP 相关
+    TestingType.NEXT_TRACE: NextTraceTestingService,
     TestingType.BACKTRACE: BacktraceTestingService,
     TestingType.IP_CHECK_PLACE: IPCheckPlaceTestingService,
     TestingType.REGION_RESTRICTION_CHECK: RegionRestrictionCheckTestingService,

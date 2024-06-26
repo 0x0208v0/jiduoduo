@@ -64,6 +64,7 @@ class TestingType(StrEnum):
     DD = 'dd'
     FREE_H = 'free_h'
     # IP 相关
+    NEXT_TRACE = 'next_trace'
     BACKTRACE = 'backtrace'
     IP_CHECK_PLACE = 'ip_check_place'
     REGION_RESTRICTION_CHECK = 'region_restriction_check'
@@ -92,6 +93,7 @@ TESTING_TYPE_ZH = {
     TestingType.DD: '硬盘测试专项',
     TestingType.FREE_H: '系统内存使用情况',
     # IP 相关
+    TestingType.NEXT_TRACE: '可视化路由跟踪',
     TestingType.BACKTRACE: '三网回程路由测试',
     TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
     TestingType.REGION_RESTRICTION_CHECK: '流媒体解锁测试专项',
