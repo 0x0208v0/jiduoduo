@@ -29,7 +29,7 @@ def index():
         testing_list = Testing.get_list(
             Testing.is_public == True,
             order_by=[Testing.updated_at.desc()],
-            limit=10,
+            limit=20,
         )
 
     return render_template(

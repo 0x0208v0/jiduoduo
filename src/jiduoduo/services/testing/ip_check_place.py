@@ -12,7 +12,7 @@ from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class IPCheckPlaceTestingParams(TestingParams):
-    timeout: int = Field(60 * 5)  # seconds
+    timeout: int = Field(60 * 10)  # seconds
 
 
 class IPCheckPlaceTestingResult(TestingResult):
