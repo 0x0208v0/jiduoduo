@@ -10,12 +10,19 @@
 
           <li class="list-group-item">
             <div><img src="{{ url_for('static', filename='data-sheet.svg') }}" alt="type">测试类型：</div>
-            <div class="d-flex align-items-end" style="height: 40px;">
+            <div class="d-flex align-items-end" style="height: 35px;">
               <span>{{ testing.display_type_zh }}</span>
+
               <a class="icon-link link-danger ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                  href="{{ url_for('testing.delete', id=testing.id) }}"
               >
                 <img src="{{ url_for('static', filename='delete.svg') }}" alt="delete testing">删除测试
+              </a>
+
+              <a class="icon-link link-primary ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                 href="{{ url_for('testing.rerun', id=testing.id) }}"
+              >
+                <img src="{{ url_for('static', filename='replay-music.svg') }}" alt="rerun">重跑测试
               </a>
             </div>
 
@@ -23,7 +30,8 @@
 
           <li class="list-group-item">
             <div><img src="{{ url_for('static', filename='new-computer.svg') }}" alt="vps">VPS:</div>
-            <div>
+
+            <div class="d-flex align-items-end" style="height: 35px;">
               {% if testing.vps %}
                 <a href="{{ url_for('vps.detail', id=testing.vps.id) }}"
                    class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
@@ -34,6 +42,7 @@
                 <span>VPS不存在</span>
               {% endif %}
             </div>
+
           </li>
 
         {% endif %}
@@ -41,40 +50,29 @@
 
         <li class="list-group-item">
           <div><img src="{{ url_for('static', filename='lightning.svg') }}" alt="state">当前状态:</div>
-          <div class="d-flex align-items-end" style="height: 40px;">
+          <div class="d-flex align-items-end" style="height: 35px;">
             <span id="state">{{ testing.display_state_emoji }} {{ testing.display_state_zh }}</span>
+
             {% if  current_user.is_authenticated %}
-              <a class="icon-link link-primary ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                 href="{{ url_for('testing.rerun', id=testing.id) }}"
-              >
-                <img src="{{ url_for('static', filename='replay-music.svg') }}" alt="rerun">重跑测试
-              </a>
+              <span class="ms-5 me-5 form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch"
+                       id="public" {{ 'checked' if testing.is_public else '' }}
+                >
+                <label class="form-check-label" for="public">公开测试结果</label>
+              </span>
             {% endif %}
+
+            <a class="icon-link link-primary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               href="#"
+               id="download"
+            >
+              <img src="{{ url_for('static', filename='download.svg') }}" alt="rerun">下载测试结果
+            </a>
           </div>
         </li>
-        {% if current_user.is_authenticated %}
-          <li class="list-group-item">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch"
-                     id="public" {{ 'checked' if testing.is_public else '' }}
-              >
-              <label class="form-check-label" for="public">公开测试结果</label>
-            </div>
-          </li>
-        {% endif %}
-        <li class="list-group-item">
-          <a class="icon-link link-primary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-             href="#"
-             id="download"
-          >
-            <img src="{{ url_for('static', filename='download.svg') }}" alt="rerun">下载测试结果
-          </a>
-        </li>
 
         <li class="list-group-item">
         </li>
-
-
       </ul>
 
     </div>
@@ -85,7 +83,9 @@
 
 {% block terminal %}
 
-  <div id="terminal" style="width: 95%;"></div>
+  <div id="terminal_wrapper">
+    <div id="terminal"></div>
+  </div>
 
 {% endblock %}
 
@@ -94,6 +94,20 @@
   <link href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.min.css" rel="stylesheet">
 
   <style>
+      #terminal_wrapper {
+          min-width: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 100);
+      }
+
+      #terminal {
+          position: absolute;
+          left: 0;
+          margin: auto;
+          min-width: 100%;
+          border-left: rgba(0, 0, 0, 0) 10px;
+      }
+
       .testing-result {
           -webkit-text-size-adjust: 100%;
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -135,20 +149,23 @@
       convertEol: true,
       disableStdin: true,
       cursorBlink: false,
-      rows: testing.result_rows,
+      rows: testing.terminal_rows,
+      cols: testing.terminal_cols,
       fontFamily: 'monospace',
       screenReaderMode: true,
       cursorStyle: null,
     });
 
+    const terminalWrapperContainer = document.getElementById('terminal_wrapper');
     const terminalContainer = document.getElementById('terminal');
+
     terminal.open(terminalContainer);
 
     const state = document.getElementById('state');
 
     function updateTerminal() {
       terminal.clear();
-      terminal.resize(terminal.cols, testing.result_rows);
+      terminal.resize(testing.terminal_cols, testing.terminal_rows);
       terminal.write(testing.result)
     }
 
@@ -162,7 +179,7 @@
     // https://github.com/xtermjs/xterm.js/issues/2499
     const fitAddon = new FitAddon.FitAddon();
     terminal.loadAddon(fitAddon);
-    fitAddon.fit();
+    //fitAddon.fit();
 
     const intervalID = setInterval(() => {
       if (testing.is_done) {
@@ -190,21 +207,22 @@
     }, 1500);
 
     const xterm_resize_ob = new ResizeObserver(function(entries) {
-      // since we are observing only a single element, so we access the first element in entries array
       try {
-        fitAddon && fitAddon.fit();
-        terminal.resize(terminal.cols, testing.result_rows);
+        //fitAddon.fit();
+        //terminal.resize(terminal.cols, testing.result_rows);
       } catch (err) {
         console.log(err);
       }
     });
 
-    // start observing for resize
     xterm_resize_ob.observe(terminalContainer);
 
     const downloadButton = document.getElementById('download');
     downloadButton.addEventListener('click', () => {
-      html2canvas(terminalContainer, {scrollY: -window.scrollY}).then(canvas => {
+      const options = {
+        scrollY: -window.scrollY,
+      };
+      html2canvas(terminalContainer, options).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const link = document.createElement('a');
         link.href = imgData;

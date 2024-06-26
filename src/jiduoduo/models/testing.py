@@ -220,28 +220,35 @@ class Testing(BaseModel, UserMixin):
         return self.ended_at - self.started_at
 
     @cached_property
-    def result_rows(self) -> int:
-        columns = 1000
-        lines = self.result.count('\n') + 1
-        screen = pyte.Screen(columns, lines)
+    def terminal_cols_rows(self) -> tuple[int, int]:
+        rows = self.result.count('\n') + 1
+        screen = pyte.Screen(columns=1024, lines=rows)
         stream = pyte.Stream(screen)
         stream.feed(self.result)
+
         for line in screen.display[::-1]:
-            if line.split():
+            if line.rstrip():
                 break
             else:
-                lines -= 1
+                rows -= 1
                 continue
-        return lines + 1
+
+        cols = 0
+        for line in screen.display[:rows]:
+            cols = max(cols, len(line.rstrip()))
+
+        return int(cols * 1.2), rows + 1
 
     def to_dict(self) -> dict:
+        terminal_cols, terminal_rows = self.terminal_cols_rows
         return {
             'id': self.id,
             'state': self.state,
             'is_done': self.is_done,
             'is_public': self.is_public,
             'result': self.result,
-            'result_rows': self.result_rows,
+            'terminal_cols': terminal_cols,
+            'terminal_rows': terminal_rows,
             'display_state_emoji_with_zh': f'{self.display_state_emoji} {self.display_state_zh}'
         }
 
