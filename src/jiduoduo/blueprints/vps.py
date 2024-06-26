@@ -9,7 +9,9 @@ from flask import url_for
 from flask_login import current_user
 from flask_login import login_required
 
+from jiduoduo.forms.vps import VPSCreateForm
 from jiduoduo.forms.vps import VPSForm
+from jiduoduo.forms.vps import VPSUpdateForm
 from jiduoduo.models import VPS
 
 logger = logging.getLogger(__name__)
@@ -33,7 +35,7 @@ def list():
 @blueprint.route('/vps/create', methods=['GET', 'POST'])
 @login_required
 def create():
-    form = VPSForm()
+    form = VPSCreateForm()
     if request.method == 'POST':
         if not form.validate_on_submit():
             form.flash_errors()
@@ -88,7 +90,7 @@ def update(id: str):
     if not vps or vps.user_id != current_user.id:
         return redirect(url_for('vps.list'))
 
-    form = VPSForm()
+    form = VPSUpdateForm()
     if not form.validate_on_submit():
         form.flash_errors()
         return redirect(url_for('vps.list'))

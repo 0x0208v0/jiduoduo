@@ -57,6 +57,8 @@ class VPSForm(BaseForm):
 
     )
 
+
+class VPSCreateForm(VPSForm):
     def validate(self, extra_validators=None) -> bool:
         result = super().validate(extra_validators=extra_validators)
 
@@ -66,3 +68,7 @@ class VPSForm(BaseForm):
             result = False
 
         return result
+
+
+class VPSUpdateForm(VPSForm):
+    pass
