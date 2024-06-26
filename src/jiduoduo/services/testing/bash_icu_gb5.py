@@ -27,7 +27,7 @@ class BashIcuGB5TestingService(TestingService):
             self,
             vps: VPS,
             params: BashIcuGB5TestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> BashIcuGB5TestingResult:
         # https://github.com/i-abc/gb5
 

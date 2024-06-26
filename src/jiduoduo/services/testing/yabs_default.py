@@ -27,7 +27,7 @@ class YABSDefaultTestingService(TestingService):
             self,
             vps: VPS,
             params: YABSDefaultTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> YABSDefaultTestingResult:
         # https://github.com/masonr/yet-another-bench-script
 

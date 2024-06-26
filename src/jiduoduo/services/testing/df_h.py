@@ -26,7 +26,7 @@ class DFHTestingService(TestingService):
             self,
             vps: VPS,
             params: DFHTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> DFHTestingResult:
         run_result = vps.run(
             'df -h',

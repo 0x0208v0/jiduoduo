@@ -28,7 +28,7 @@ class CheckUnlockMediaTestingService(TestingService):
             self,
             vps: VPS,
             params: CheckUnlockMediaTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> CheckUnlockMediaTestingResult:
         # https://github.com/lmc999/RegionRestrictionCheck
 

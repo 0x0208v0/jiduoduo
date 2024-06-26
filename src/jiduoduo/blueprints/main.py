@@ -22,12 +22,19 @@ def index():
         testing_count = Testing.count(
             Testing.user_id == current_user.id,
         )
+        testing_list = []
     else:
         vps_count = 0
         testing_count = 0
+        testing_list = Testing.get_list(
+            Testing.is_public == True,
+            order_by=[Testing.updated_at.desc()],
+            limit=10,
+        )
 
     return render_template(
         'main/index.html',
         vps_count=vps_count,
         testing_count=testing_count,
+        testing_list=testing_list
     )

@@ -28,7 +28,7 @@ class IPCheckPlaceTestingService(TestingService):
             self,
             vps: VPS,
             params: IPCheckPlaceTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> IPCheckPlaceTestingResult:
         # https://github.com/xykt/IPQuality
 

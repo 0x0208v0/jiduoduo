@@ -26,7 +26,7 @@ class YABSBasicSysInfoTestingService(TestingService):
             self,
             vps: VPS,
             params: YABSBasicSysInfoTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> YABSBasicSysInfoTestingResult:
         # https://github.com/masonr/yet-another-bench-script
 

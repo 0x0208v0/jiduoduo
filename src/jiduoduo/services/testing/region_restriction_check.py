@@ -28,7 +28,7 @@ class RegionRestrictionCheckTestingService(TestingService):
             self,
             vps: VPS,
             params: RegionRestrictionCheckTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> RegionRestrictionCheckTestingResult:
         command = 'bash <(curl -L -s https://github.com/1-stream/RegionRestrictionCheck/raw/main/check.sh)'
 

@@ -27,7 +27,7 @@ class YABSGB5TestingService(TestingService):
             self,
             vps: VPS,
             params: YABSGB5TestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> YABSGB5TestingResult:
         # https://github.com/masonr/yet-another-bench-script
 

@@ -26,7 +26,7 @@ class BacktraceTestingService(TestingService):
             self,
             vps: VPS,
             params: BacktraceTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> BacktraceTestingResult:
         # https://github.com/zhanghanyun/backtrace
 

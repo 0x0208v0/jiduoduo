@@ -28,7 +28,7 @@ class SpiritLHLSECSSpeedTestingService(TestingService):
             self,
             vps: VPS,
             params: SpiritLHLSECSSpeedTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> SpiritLHLSECSSpeedTestingResult:
         # https://github.com/spiritLHLS/ecsspeed
 

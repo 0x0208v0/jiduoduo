@@ -37,6 +37,7 @@ def create():
     if request.method == 'POST':
         if not form.validate_on_submit():
             form.flash_errors()
+
         else:
             vps = VPS(
                 user_id=current_user.id,
@@ -48,6 +49,7 @@ def create():
                 identify_key=form.identify_key.data,
             )
             vps.save()
+
             return redirect(url_for('vps.list'))
 
     return render_template('vps/create.html', form=form)
@@ -65,9 +67,13 @@ def detail(id: str):
         host=vps.host,
         port=vps.port,
         user=vps.user,
-        password=vps.password,
-        identify_key=vps.identify_key,
+        password='',
+        identify_key='',
     )
+
+    form.password.render_kw['placeholder'] = '已隐藏'
+    form.identify_key.render_kw['placeholder'] = '已隐藏'
+
     return render_template(
         'vps/detail.html',
         vps=vps,
@@ -91,9 +97,10 @@ def update(id: str):
     vps.host = form.host.data
     vps.port = form.port.data
     vps.user = form.user.data
-    vps.password = form.password.data
-    vps.identify_key = form.identify_key.data
+    vps.password = form.password.data or vps.password
+    vps.identify_key = form.identify_key.data or vps.identify_key
     vps.save()
+
     flash('更新成功', 'success')
     return redirect(url_for('vps.detail', id=id))
 

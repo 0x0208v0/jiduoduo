@@ -26,7 +26,7 @@ class FREEHTestingService(TestingService):
             self,
             vps: VPS,
             params: FREEHTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> FREEHTestingResult:
         run_result = vps.run(
             'free -h',

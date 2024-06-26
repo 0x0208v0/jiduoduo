@@ -26,7 +26,7 @@ class IPSB6TestingService(TestingService):
             self,
             vps: VPS,
             params: IPSB6TestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> IPSB6TestingResult:
         run_result = vps.run(
             'curl -6 ip.sb',

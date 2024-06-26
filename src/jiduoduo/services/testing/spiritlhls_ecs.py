@@ -28,7 +28,7 @@ class SpiritLHLSECSTestingService(TestingService):
             self,
             vps: VPS,
             params: SpiritLHLSECSTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> SpiritLHLSECSTestingResult:
         # https://github.com/spiritLHLS/ecs
 

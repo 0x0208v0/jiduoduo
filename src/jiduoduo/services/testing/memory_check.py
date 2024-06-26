@@ -26,7 +26,7 @@ class MemoryCheckTestingService(TestingService):
             self,
             vps: VPS,
             params: MemoryCheckTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> MemoryCheckTestingResult:
         # https://github.com/uselibrary/memoryCheck
 

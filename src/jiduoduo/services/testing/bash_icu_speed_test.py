@@ -28,7 +28,7 @@ class BashIcuSpeedTestTestingService(TestingService):
             self,
             vps: VPS,
             params: BashIcuSpeedTestTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> BashIcuSpeedTestTestingResult:
         # https://github.com/i-abc/speedtest
 

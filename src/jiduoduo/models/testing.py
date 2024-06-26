@@ -10,6 +10,7 @@ from typing import Self
 import pyte
 from flask_login import current_user
 from pydantic import BaseModel as PydanticBaseModel
+from sqlalchemy import Boolean
 from sqlalchemy import DateTime
 from sqlalchemy import String
 from sqlalchemy import Text
@@ -138,24 +139,35 @@ class Testing(BaseModel, UserMixin):
         default=TestingState.CREATED,
         server_default=TestingState.CREATED,
     )
+
     params: Mapped[str] = mapped_column(
         Text,
         nullable=False,
     )
+
     result: Mapped[str] = mapped_column(
         Text,
         nullable=False,
         default='',
     )
+
     started_at: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,
         default=lambda: datetime.utcnow(),
     )
+
     ended_at: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,
         default=lambda: datetime.utcnow(),
+    )
+
+    is_public: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=False,
+        server_default='0',
     )
 
     @cached_property
@@ -164,7 +176,7 @@ class Testing(BaseModel, UserMixin):
         if self.vps:
             vps_name = self.vps.name
         else:
-            vps_name = '未知VPS'
+            vps_name = '未命名的VPS'
         return f'{state}【{self.display_type_zh}】{vps_name}'
 
     @property
@@ -220,13 +232,14 @@ class Testing(BaseModel, UserMixin):
             else:
                 lines -= 1
                 continue
-        return lines + 1  # add one empty line
+        return lines + 1
 
     def to_dict(self) -> dict:
         return {
             'id': self.id,
             'state': self.state,
             'is_done': self.is_done,
+            'is_public': self.is_public,
             'result': self.result,
             'result_rows': self.result_rows,
             'display_state_emoji_with_zh': f'{self.display_state_emoji} {self.display_state_zh}'
@@ -294,3 +307,21 @@ class Testing(BaseModel, UserMixin):
         )
         result = db.session.execute(stmt).scalars()
         return list(result)
+
+    @classmethod
+    def check_precreate(cls):
+        MAX = 10
+        current = cls.count(
+            cls.state != TestingState.SUCCESS.value,
+            cls.state != TestingState.FAILED.value,
+        )
+        if MAX > current:
+            raise ValueError(f'系统最多支持同时运行{MAX}个测试，当前已有{current}个测试正在运行，请稍后再试')
+
+    def make_public(self, commit: bool = True):
+        self.is_public = True
+        self.save(commit=commit)
+
+    def make_private(self, commit: bool = True):
+        self.is_public = False
+        self.save(commit=commit)

@@ -27,7 +27,7 @@ class NextTraceTestingService(TestingService):
             self,
             vps: VPS,
             params: NextTraceTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> NextTraceTestingResult:
         # https://github.com/nxtrace/NTrace-core
 

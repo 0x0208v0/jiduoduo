@@ -27,7 +27,7 @@ class YABSDiskTestingService(TestingService):
             self,
             vps: VPS,
             params: YABSDiskTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> YABSDiskTestingResult:
         # https://github.com/masonr/yet-another-bench-script
 

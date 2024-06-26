@@ -10,7 +10,7 @@ from jiduoduo.services.testing.base import TestingService
 
 
 class LoginTestingParams(TestingParams):
-    timeout: int = Field(5)  # seconds
+    timeout: int = Field(6)  # seconds
 
 
 class LoginTestingResult(TestingResult):
@@ -26,10 +26,12 @@ class LoginTestingService(TestingService):
             self,
             vps: VPS,
             params: LoginTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> LoginTestingResult:
+        command = 'echo "登陆成功!"'
+
         run_result = vps.run(
-            'echo login ok!',
+            command,
             timeout=params.timeout,
             warn=True,
         )

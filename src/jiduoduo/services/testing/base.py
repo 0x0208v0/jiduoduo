@@ -97,5 +97,7 @@ class TestingService(ABC):
         return testing
 
     @abstractmethod
-    def run_on_vps(self, vps: VPS, params: TestingParams, flush_callback: Callable[[str], None]) -> TestingResult:
+    def run_on_vps(
+            self, vps: VPS, params: TestingParams, flush_callback: Callable[[str], None] | None = None
+    ) -> TestingResult:
         pass

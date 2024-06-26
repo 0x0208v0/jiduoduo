@@ -28,7 +28,7 @@ class DDTestingService(TestingService):
             self,
             vps: VPS,
             params: DDTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> DDTestingResult:
         # https://pickstar.today/2023/07/%E6%96%B0%E8%B4%ADvps%E5%B8%B8%E7%94%A8%E8%AF%84%E6%B5%8B%E8%84%9A%E6%9C%AC%E9%9B%86%E5%90%88/
         # 参考 硬盘专项测试

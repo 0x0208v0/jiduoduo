@@ -26,7 +26,7 @@ class IPInfoIOTestingService(TestingService):
             self,
             vps: VPS,
             params: IPInfoIOTestingParams,
-            flush_callback: Callable[[str], None],
+            flush_callback: Callable[[str], None] | None = None,
     ) -> IPInfoIOTestingResult:
         run_result = vps.run(
             'curl https://ipinfo.io/',

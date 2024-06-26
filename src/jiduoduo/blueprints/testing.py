@@ -58,6 +58,7 @@ def create():
             form.flash_errors()
 
         else:
+            Testing.check_precreate()
             testing = Testing.create(type=type, vps_or_id=vps, user_or_id=current_user)
             run_testing.delay(testing_id=testing.id)
             return redirect(url_for('testing.detail', id=testing.id))
@@ -65,39 +66,16 @@ def create():
     return render_template('testing/create.html', form=form)
 
 
-@blueprint.get('/testing/<string:id>')
-@login_required
-def detail(id: str):
-    testing = Testing.get(id)
-    if not testing or testing.user_id != current_user.id:
-        return redirect(url_for('testing.list'))
-
-    return render_template(
-        'testing/detail.html',
-        testing=testing,
-    )
-
-
-@blueprint.get('/api/testing/<string:id>')
-@login_required
-def api_detail(id: str):
-    testing = Testing.get(id)
-    if not testing or testing.user_id != current_user.id:
-        return {
-            'err': 'not found or not authorized',
-        }
-
-    return {
-        'data': testing.to_dict(),
-    }
-
-
 @blueprint.route('/testing/<string:id>/rerun', methods=['GET', 'POST'])
+@login_required
 def rerun(id: str):
     testing = Testing.get(id)
-    if not testing or testing.user_id != current_user.id:
+    if not testing:
+        return redirect(url_for('testing.list'))
+    if testing.user_id != current_user.id:
         return redirect(url_for('testing.list'))
 
+    Testing.check_precreate()
     testing.set_state_created()
     run_testing.delay(testing_id=testing.id)
 
@@ -112,5 +90,65 @@ def delete(id: str):
         return redirect(url_for('testing.list'))
 
     testing.delete()
-    flash('VPS已删除', 'success')
+    flash('测试已删除', 'success')
     return redirect(url_for('testing.list'))
+
+
+@blueprint.get('/testing/<string:id>')
+def detail(id: str):
+    testing = Testing.get(id)
+    if not testing:
+        return redirect(url_for('testing.list'))
+
+    return render_template(
+        'testing/detail.html',
+        testing=testing,
+    )
+
+
+@blueprint.get('/api/testing/<string:id>')
+def api_detail(id: str):
+    testing = Testing.get(id)
+    if not testing:
+        return {
+            'err': '测试不存在',
+        }
+    return {
+        'data': testing.to_dict(),
+    }
+
+
+@blueprint.post('/api/testing/<string:id>/public')
+@login_required
+def api_make_public(id: str):
+    testing = Testing.get(id)
+    if not testing:
+        return {
+            'err': '不存在',
+        }
+    if testing.user_id != current_user.id:
+        return {
+            'err': '无权限',
+        }
+    testing.make_public()
+    return {
+        'data': testing.to_dict(),
+    }
+
+
+@blueprint.post('/api/testing/<string:id>/private')
+@login_required
+def api_make_private(id: str):
+    testing = Testing.get(id)
+    if not testing:
+        return {
+            'err': '不存在',
+        }
+    if testing.user_id != current_user.id:
+        return {
+            'err': '无权限',
+        }
+    testing.make_private()
+    return {
+        'data': testing.to_dict(),
+    }
