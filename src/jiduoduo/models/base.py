@@ -178,7 +178,6 @@ class SqlalchemyBaseModel(DeclarativeBase):
             cls,
             *where, order_by: list | None = None,
             offset: int | None = None, limit: int | None = None,
-
     ) -> list[Self]:
         stmt = cls.build_stmt(*where, order_by=order_by, offset=offset, limit=limit)
         result = db.session.execute(stmt).scalars()

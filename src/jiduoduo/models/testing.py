@@ -310,7 +310,7 @@ class Testing(BaseModel, UserMixin):
     def get_created_id_list(cls) -> list:
         stmt = (
             select(cls.id)
-            .where(cls.state == TestingState.CREATED.value)
+            .where(cls._state == TestingState.CREATED.value)
         )
         result = db.session.execute(stmt).scalars()
         return list(result)
@@ -319,8 +319,8 @@ class Testing(BaseModel, UserMixin):
     def check_precreate(cls):
         MAX = 10
         current = cls.count(
-            cls.state != TestingState.SUCCESS.value,
-            cls.state != TestingState.FAILED.value,
+            cls._state != TestingState.SUCCESS.value,
+            cls._state != TestingState.FAILED.value,
         )
         if MAX < current:
             raise ValueError(f'系统最多支持同时运行{MAX}个测试，当前已有{current}个测试正在运行，请稍后再试')
