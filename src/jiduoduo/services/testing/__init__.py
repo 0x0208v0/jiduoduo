@@ -12,7 +12,8 @@ from jiduoduo.services.testing.bash_icu_speed_test import BashIcuSpeedTestTestin
 from jiduoduo.services.testing.check_unlock_media import CheckUnlockMediaTestingService
 from jiduoduo.services.testing.dd import DDTestingService
 from jiduoduo.services.testing.df_h import DFHTestingService
-from jiduoduo.services.testing.free_h import FREEHTestingService
+from jiduoduo.services.testing.free_h import FreeHTestingService
+from jiduoduo.services.testing.hyper_speed import HyperSpeedTestingService
 from jiduoduo.services.testing.ip_check_place import IPCheckPlaceTestingService
 from jiduoduo.services.testing.ip_info_io import IPInfoIOTestingService
 from jiduoduo.services.testing.ip_sb_4 import IPSB4TestingService
@@ -41,7 +42,8 @@ TESTING_SERVICE_CLS_DICT = {
     TestingType.BASH_ICU_SPEED_TEST: BashIcuSpeedTestTestingService,
     TestingType.DF_H: DFHTestingService,
     TestingType.DD: DDTestingService,
-    TestingType.FREE_H: DFHTestingService,
+    TestingType.FREE_H: FreeHTestingService,
+    TestingType.HYPER_SPEED: HyperSpeedTestingService,
     # IP 相关
     TestingType.NEXT_TRACE: NextTraceTestingService,
     TestingType.BACKTRACE: BacktraceTestingService,

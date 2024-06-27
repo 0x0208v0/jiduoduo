@@ -9,29 +9,29 @@ from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
 
 
-class FREEHTestingParams(TestingParams):
+class FreeHTestingParams(TestingParams):
     timeout: int = Field(10)  # seconds
 
 
-class FREEHTestingResult(TestingResult):
+class FreeHTestingResult(TestingResult):
     pass
 
 
-class FREEHTestingService(TestingService):
+class FreeHTestingService(TestingService):
     testing_type: TestingType = TestingType.FREE_H
-    testing_params_cls: type[FREEHTestingParams] = FREEHTestingParams
-    testing_result_cls: type[FREEHTestingResult] = FREEHTestingResult
+    testing_params_cls: type[FreeHTestingParams] = FreeHTestingParams
+    testing_result_cls: type[FreeHTestingResult] = FreeHTestingResult
 
     def run_on_vps(
             self,
             vps: VPS,
-            params: FREEHTestingParams,
+            params: FreeHTestingParams,
             flush_callback: Callable[[str], None] | None = None,
-    ) -> FREEHTestingResult:
+    ) -> FreeHTestingResult:
         run_result = vps.run(
             'free -h',
             timeout=params.timeout,
             warn=True,
         )
 
-        return FREEHTestingResult(result=str(run_result))
+        return FreeHTestingResult(result=str(run_result))
