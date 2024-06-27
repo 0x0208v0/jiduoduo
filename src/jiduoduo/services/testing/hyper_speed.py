@@ -40,8 +40,8 @@ class HyperSpeedTestingService(TestingService):
             warn=True,
             pty=True,
             watchers=[
-                Responder(pattern=r'请选择', response='1\n'),
-                Responder(pattern=r'[y/N]', response='N\n'),
+                Responder(pattern=r'请选择测速类型', response='1\n'),
+                Responder(pattern=r'启用八线程测速', response='N\n'),
             ],
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )

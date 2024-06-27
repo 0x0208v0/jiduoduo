@@ -28,8 +28,10 @@ class IPInfoIOTestingService(TestingService):
             params: IPInfoIOTestingParams,
             flush_callback: Callable[[str], None] | None = None,
     ) -> IPInfoIOTestingResult:
+        command = 'curl https://ipinfo.io/'
+
         run_result = vps.run(
-            'curl https://ipinfo.io/',
+            command,
             timeout=params.timeout,
             warn=True,
         )
