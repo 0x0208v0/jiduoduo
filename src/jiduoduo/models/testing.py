@@ -322,7 +322,7 @@ class Testing(BaseModel, UserMixin):
             cls.state != TestingState.SUCCESS.value,
             cls.state != TestingState.FAILED.value,
         )
-        if MAX > current:
+        if MAX < current:
             raise ValueError(f'系统最多支持同时运行{MAX}个测试，当前已有{current}个测试正在运行，请稍后再试')
 
     def make_public(self, commit: bool = True):
