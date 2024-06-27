@@ -41,6 +41,7 @@ class HyperSpeedTestingService(TestingService):
             pty=True,
             watchers=[
                 Responder(pattern=r'请选择', response='1\n'),
+                Responder(pattern=r'[y/N]', response='N\n'),
             ],
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
