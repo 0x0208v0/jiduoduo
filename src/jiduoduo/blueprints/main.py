@@ -15,6 +15,11 @@ def health():
 
 @blueprint.get('/')
 def index():
+    testing_list = Testing.get_list(
+        Testing.is_public == True,
+        order_by=[Testing.updated_at.desc()],
+        limit=20,
+    )
     if current_user.is_authenticated:
         vps_count = VPS.count(
             VPS.user_id == current_user.id,
@@ -22,15 +27,9 @@ def index():
         testing_count = Testing.count(
             Testing.user_id == current_user.id,
         )
-        testing_list = []
     else:
         vps_count = 0
         testing_count = 0
-        testing_list = Testing.get_list(
-            Testing.is_public == True,
-            order_by=[Testing.updated_at.desc()],
-            limit=20,
-        )
 
     return render_template(
         'main/index.html',
