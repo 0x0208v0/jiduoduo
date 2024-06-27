@@ -12,8 +12,8 @@ from jiduoduo.forms.base import BaseForm
 class LoginForm(BaseForm):
     email = StringField('邮箱：', validators=[DataRequired(), Email()])
     password = StringField('密码：', validators=[DataRequired()])
-    remember_me = BooleanField('保持登陆')
-    submit = SubmitField('登陆')
+    remember_me = BooleanField('保持登录')
+    submit = SubmitField('登录')
 
 
 class RegisterForm(BaseForm):

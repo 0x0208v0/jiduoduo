@@ -45,14 +45,14 @@ class VPSForm(BaseForm):
     password = StringField(
         'SSH 密码：',
         render_kw={
-            'placeholder': '和登陆Key二选一，填一个就行',
+            'placeholder': '和登录Key二选一，填一个就行',
         }
     )
     identify_key = TextAreaField(
         'SSH Key：',
         render_kw={
             'rows': 5,
-            'placeholder': '和登陆密码二选一，填一个就行',
+            'placeholder': '和登录密码二选一，填一个就行',
         }
 
     )
@@ -63,8 +63,8 @@ class VPSCreateForm(VPSForm):
         result = super().validate(extra_validators=extra_validators)
 
         if not self.password.data and not self.identify_key.data:
-            self.password.errors.append('和登陆Key二选一')
-            self.identify_key.errors.append('和登陆密码二选一')
+            self.password.errors.append('和登录Key二选一')
+            self.identify_key.errors.append('和登录密码二选一')
             result = False
 
         return result

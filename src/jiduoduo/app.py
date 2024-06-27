@@ -23,7 +23,7 @@ app.config.update(config.model_dump())
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'user.login'
-login_manager.login_message = '访问该页面需要先登陆'
+login_manager.login_message = '访问该页面需要先登录'
 
 
 @login_manager.user_loader

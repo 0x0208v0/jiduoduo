@@ -84,7 +84,7 @@ class TestingType(StrEnum):
 UNKNOWN_TESTING_TYPE_ZH = '未知测试类型'
 
 TESTING_TYPE_ZH = {
-    TestingType.LOGIN: '登陆测试',
+    TestingType.LOGIN: '登录测试',
     TestingType.MEMORY_CHECK: '超售检查',
     TestingType.SPIRITLHLS_ECS: 'spiritLHLS ecs 融合怪',
     TestingType.SPIRITLHLS_ECS_SPEED: 'spiritLHLS ecsspeed 自动更新测速服务器节点列表的网络基准测试脚本',

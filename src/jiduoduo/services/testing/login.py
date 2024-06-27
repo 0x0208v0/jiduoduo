@@ -28,7 +28,7 @@ class LoginTestingService(TestingService):
             params: LoginTestingParams,
             flush_callback: Callable[[str], None] | None = None,
     ) -> LoginTestingResult:
-        command = 'echo "登陆成功!"'
+        command = 'echo "登录成功!"'
 
         run_result = vps.run(
             command,
