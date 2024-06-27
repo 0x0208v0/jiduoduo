@@ -1,5 +1,6 @@
 from typing import Callable
 
+from invoke import Responder
 from pydantic import Field
 
 from jiduoduo.models import VPS
@@ -38,6 +39,9 @@ class HyperSpeedTestingService(TestingService):
             timeout=params.timeout,
             warn=True,
             pty=True,
+            watchers=[
+                Responder(pattern=r'请选择', response='1\n'),
+            ],
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
 
