@@ -1,0 +1,90 @@
+{% extends 'template/bootstrap.html' %}
+
+{% block icon %}
+  {#
+     图标:
+     https://www.svgrepo.com/
+     https://iconpark.oceanengine.com/official
+  #}
+  {{ url_for('static', filename='chickens-chick-svgrepo-com.svg') }}
+{% endblock %}
+
+{% block title %}
+  鸡多多 | 开源VPS自动化测试平台
+{% endblock %}
+
+{% block description %}
+  鸡多多；开源VPS自动化测试平台；VPS自动化测试工具
+{% endblock %}
+
+
+{% block content %}
+  <div id="app" class="d-flex flex-column justify-content-center align-items-center">
+
+    {% block app %}
+
+      <div class="container-fluid" style="max-width: 666px;">
+        <nav class="navbar bg-body-tertiary mb-4">
+          <div class="container-fluid">
+            <div>
+              <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <img src="{{ url_for('static', filename='chickens-chick-svgrepo-com.svg') }}"
+                     width="21" height="21" alt="icon"
+                />
+                <span>
+                  鸡多多 | 开源VPS自动化测试平台
+                  <a href="https://github.com/0x0208v0/jiduoduo" target="_blank"> Github </a>
+                </span>
+              </a>
+            </div>
+
+            {% if current_user.is_authenticated %}
+              <a href="{{ url_for('user.setting') }}">
+                <img src="{{ url_for('static', filename='setting-two.svg') }}"
+                     width="21" height="21" alt="icon"
+                />
+              </a>
+            {% endif %}
+          </div>
+        </nav>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message  in messages %}
+              {% if category == 'warning' %}
+                {% set alert_class = 'alert-warning' %}
+              {% elif category == 'error' %}
+                {% set alert_class = 'alert-danger' %}
+              {% elif category == 'info' %}
+                {% set alert_class = 'alert-primary' %}
+              {% elif category =='success' %}
+                {% set alert_class = 'alert-success' %}
+              {% else %}
+                {% set alert_class = 'alert-secondary' %}
+              {% endif %}
+              <div class="alert {{ alert_class }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block container %}
+        {% endblock %}
+      </div>
+
+      {% block terminal %}
+      {% endblock %}
+
+      <div style="margin-top: 20px;"></div>
+
+    {% endblock %}
+
+  </div>
+{% endblock content %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

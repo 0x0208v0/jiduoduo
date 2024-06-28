@@ -1,0 +1,34 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <div class="mt-3">
+          <a class="icon-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+             href="{{ url_for('testing.create') }}"
+          >
+            <img src="{{ url_for('static', filename='add.svg') }}" alt="add testing">
+            新建测试
+          </a>
+        </div>
+      </li>
+      {% for testing in testing_list %}
+        <li class="list-group-item">
+          <a href="{{ url_for('testing.detail', id=testing.id) }}"
+             class="fs-4 fw-bold link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+             style="color: #4d4a48;"
+          >
+            {{ testing.display_name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

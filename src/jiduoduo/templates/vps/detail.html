@@ -1,0 +1,75 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <div>
+    <div class="mt-4">
+      <form action="{{ url_for('vps.update',id=vps.id) }}" method="POST">
+        <div>
+          {{ form.hidden_tag() }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.name.label(class="form-label") }}
+          {{ form.name(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.host.label(class="form-label") }}
+          {{ form.host(required='', class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.port.label(class="form-label") }}
+          {{ form.port(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.user.label(class="form-label") }}
+          {{ form.user(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.password.label(class="form-label") }}
+          {{ form.password(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.identify_key.label(class="form-label") }}
+          {{ form.identify_key(class="form-control") }}
+        </div>
+
+        <div class="mt-3 d-flex">
+          <button id="btn"
+                  class="btn btn-primary btn-block"
+                  type="submit"
+          >
+            <img src="{{ url_for('static', filename='edit.svg') }}" alt="update vps">
+            保存修改
+          </button>
+
+          <a class="icon-link link-primary ms-5"
+             href="{{ url_for('testing.create', type='login', vps_id=vps.id) }}"
+          >
+            <img src="{{ url_for('static', filename='click.svg') }}" alt="login testing">
+            登录测试
+          </a>
+
+          <a class="icon-link link-danger ms-5"
+             href="{{ url_for('vps.delete', id=vps.id) }}"
+          >
+            <img src="{{ url_for('static', filename='delete.svg') }}" alt="delete vps">
+            删除VPS
+          </a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

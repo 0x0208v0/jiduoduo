@@ -1,0 +1,36 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <div>
+    <div class="mt-4">
+      <form action="{{ url_for('testing.create') }}" method="POST">
+        <div>
+          {{ form.hidden_tag() }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.type.label(class="form-label") }}
+          {{ form.type(required='', class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          {{ form.vps_id.label(class="form-label") }}
+          {{ form.vps_id(class="form-control") }}
+        </div>
+
+        <div class="mt-3">
+          <button id="btn" class="btn btn-primary btn-block" type="submit" style="margin-bottom: 30px;">
+            运行测试
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

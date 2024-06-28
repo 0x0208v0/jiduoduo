@@ -1,0 +1,267 @@
+{% extends 'frame/base.html' %}
+
+
+{% block title %}
+  {{ testing.display_name }}
+{% endblock %}
+
+{% block container %}
+  <div>
+    <div>
+
+      <ul class="list-group list-group-flush">
+
+        <li class="list-group-item">
+          {{ testing.display_name }}
+        </li>
+
+        {% if current_user.is_authenticated %}
+
+          <li class="list-group-item">
+            <div><img src="{{ url_for('static', filename='data-sheet.svg') }}" alt="type">测试类型：</div>
+            <div class="d-flex align-items-end" style="height: 35px;">
+              <span>{{ testing.display_type_zh }}</span>
+
+              <a class="icon-link link-danger ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                 href="{{ url_for('testing.delete', id=testing.id) }}"
+              >
+                <img src="{{ url_for('static', filename='delete.svg') }}" alt="delete testing">删除测试
+              </a>
+
+              <a class="icon-link link-primary ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                 href="{{ url_for('testing.rerun', id=testing.id) }}"
+              >
+                <img src="{{ url_for('static', filename='replay-music.svg') }}" alt="rerun">重跑测试
+              </a>
+            </div>
+
+          </li>
+
+          <li class="list-group-item">
+            <div><img src="{{ url_for('static', filename='new-computer.svg') }}" alt="vps">VPS:</div>
+
+            <div class="d-flex align-items-end" style="height: 35px;">
+              {% if testing.vps %}
+                <a href="{{ url_for('vps.detail', id=testing.vps.id) }}"
+                   class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                >
+                  {{ testing.vps.name }} ({{ testing.vps.host }})
+                </a>
+              {% else %}
+                <span>VPS不存在</span>
+              {% endif %}
+            </div>
+
+          </li>
+
+        {% endif %}
+
+
+        <li class="list-group-item">
+          <div><img src="{{ url_for('static', filename='lightning.svg') }}" alt="state">当前状态:</div>
+          <div class="d-flex align-items-end" style="height: 35px;">
+            <span id="state">{{ testing.display_state_emoji }} {{ testing.display_state_zh }}</span>
+
+            {% if  current_user.is_authenticated %}
+              <span class="ms-5 form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch"
+                       id="public" {{ 'checked' if testing.is_public else '' }}
+                >
+                <label class="form-check-label" for="public">公开测试结果</label>
+              </span>
+            {% endif %}
+
+            <a class="ms-5 icon-link link-primary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               href="#"
+               id="download"
+            >
+              <img src="{{ url_for('static', filename='download.svg') }}" alt="rerun">下载测试结果
+            </a>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+        </li>
+      </ul>
+
+    </div>
+    <div></div>
+  </div>
+{% endblock %}
+
+
+{% block terminal %}
+
+  <div id="terminal_wrapper">
+    <div id="terminal"></div>
+  </div>
+
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  <link href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.min.css" rel="stylesheet">
+
+  <style>
+      #terminal_wrapper {
+          min-width: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 100);
+      }
+
+      #terminal {
+          position: absolute;
+          left: 0;
+          margin: auto;
+          min-width: 100%;
+          border-left: rgba(0, 0, 0, 0) 10px;
+      }
+
+      .testing-result {
+          -webkit-text-size-adjust: 100%;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          font-size: 0.875rem;
+          padding-inline-start: 0.2em;
+          padding-inline-end: 0.2em;
+          line-height: 1.428571429;
+          box-sizing: border-box;
+          overflow-wrap: break-word;
+          display: block;
+          height: 100%;
+          max-height: 300px;
+          overflow-y: auto;
+          border-radius: 3px;
+          border-width: 1px;
+          border-style: solid;
+          border-image: initial;
+          white-space: pre;
+          border-color: #3182ce;
+          background: #EDF2F7;
+          color: #1A202C;
+      }
+  </style>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
+  <script src="https://cdn.staticfile.net/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script>
+    let testing = {{ testing.to_json() | safe }};
+
+    const terminal = new Terminal({
+      convertEol: true,
+      disableStdin: true,
+      cursorBlink: false,
+      rows: testing.terminal_rows,
+      cols: testing.terminal_cols,
+      fontFamily: 'monospace',
+      screenReaderMode: true,
+      cursorStyle: null,
+    });
+
+    const terminalWrapperContainer = document.getElementById('terminal_wrapper');
+    const terminalContainer = document.getElementById('terminal');
+
+    terminal.open(terminalContainer);
+
+    const state = document.getElementById('state');
+
+    function updateTerminal() {
+      terminal.clear();
+      terminal.resize(testing.terminal_cols, testing.terminal_rows);
+      terminal.write(testing.result)
+    }
+
+    function updateState() {
+      state.textContent = testing.display_state_emoji_with_zh;
+    }
+
+    updateTerminal()
+    updateState();
+
+    // https://github.com/xtermjs/xterm.js/issues/2499
+    const fitAddon = new FitAddon.FitAddon();
+    terminal.loadAddon(fitAddon);
+    //fitAddon.fit();
+
+    const intervalID = setInterval(() => {
+      if (testing.is_done) {
+        clearInterval(intervalID);
+        return
+      }
+
+      axios.get(`{{ url_for('testing.api_detail', id=testing.id) }}`)
+          .then(function(response) {
+            // handle success
+            testing = response.data.data;
+            updateTerminal();
+            updateState();
+
+          })
+          .catch(function(error) {
+            // handle error
+            console.log(error);
+
+          })
+          .finally(function() {
+            // always executed
+
+          });
+    }, 1500);
+
+    const xterm_resize_ob = new ResizeObserver(function(entries) {
+      try {
+        //fitAddon.fit();
+        //terminal.resize(terminal.cols, testing.result_rows);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    xterm_resize_ob.observe(terminalContainer);
+
+    const downloadButton = document.getElementById('download');
+    downloadButton.addEventListener('click', () => {
+      const options = {
+        scrollY: -window.scrollY,
+      };
+      html2canvas(terminalContainer, options).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = imgData;
+        link.download = 'result.png';
+        link.click();
+        link.remove();
+      })
+    });
+
+    const publicCheckbox = document.getElementById('public');
+    publicCheckbox.addEventListener('click', () => {
+      if (publicCheckbox.checked) {
+        axios.post(`{{ url_for('testing.api_make_public', id=testing.id) }}`)
+            .then(function(response) {
+            })
+            .catch(function(error) {
+              console.log(error);
+              publicCheckbox.checked = false;
+            })
+      } else {
+        axios.post(`{{ url_for('testing.api_make_private', id=testing.id) }}`)
+            .then(function(response) {
+            })
+            .catch(function(error) {
+              console.log(error);
+              publicCheckbox.checked = true;
+            })
+      }
+    })
+
+  </script>
+
+{% endblock %}

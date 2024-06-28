@@ -1,0 +1,113 @@
+x-jiduoduo-common:
+  &jiduoduo-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: jiduoduo
+  working_dir: /jiduoduo_data
+  volumes:
+    - ./jiduoduo_data:/jiduoduo_data
+  environment:
+    &jiduoduo-common-env
+    SECRET_KEY: ${SECRET_KEY:-jiduoduo}
+    PERMANENT_SESSION_LIFETIME_MINUTES: ${PERMANENT_SESSION_LIFETIME_MINUTES:-120}
+    SQLALCHEMY_DATABASE_URI: ${SQLALCHEMY_DATABASE_URI:-sqlite:///db.sqlite3}
+    CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://redis:6379/0}
+    CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND:-redis://redis:6379/0}
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10M"
+      max-file: "10"
+  networks:
+    - jiduoduo-network
+
+services:
+  webserver:
+    <<: *jiduoduo-common
+    container_name: 'jiduoduo-webserver'
+    restart: always
+    ports:
+      - ${WEBSERVER_PORT:-15000}:5000
+    command: [
+      'gunicorn',
+      '--log-level=INFO',
+      '--capture-output',
+      '--access-logfile','-',
+      '--error-logfile', '-',
+      '-b', '0.0.0.0:5000',
+      '-k', 'gevent',
+      '-w', '2',
+      '-t', '30',
+      'jiduoduo.app:app'
+    ]
+
+  worker:
+    <<: *jiduoduo-common
+    container_name: 'jiduoduo-worker'
+    restart: always
+    command: celery --app jiduoduo.tasks.base.celery worker --loglevel=info
+
+  redis:
+    image: redis:7.2.4
+    container_name: jiduoduo-redis
+    ports:
+      - ${REDIS_PORT:-15010}:6379
+    command: redis-server
+    privileged: true
+    restart: always
+    networks:
+      - jiduoduo-network
+
+  redis-commander:
+    image: ghcr.io/joeferner/redis-commander:latest
+    container_name: jiduoduo-redis-commander
+    environment:
+      # https://github.com/joeferner/redis-commander
+      - REDIS_HOSTS=local:redis:6379:0
+      - HTTP_USER=${COMMANDER_ADMIN:-jiduoduo}
+      - HTTP_PASSWORD=${COMMANDER_PASSWORD:-jiduoduo}
+    hostname: redis-commander
+    ports:
+      - ${REDIS_COMMANDER_PORT:-15011}:8081
+    restart: always
+    networks:
+      - jiduoduo-network
+
+  adminer:
+    image: adminer:4.8.1-standalone
+    container_name: jiduoduo-adminer
+    working_dir: /jiduoduo_data
+    environment:
+      - ADMINER_DEFAULT_SERVER=db.sqlite3
+    volumes:
+      # https://github.com/TimWolla/docker-adminer/issues/123
+      - ./jiduoduo_data:/jiduoduo_data
+      - ./login-password-less.php:/var/www/html/plugins-enabled/login-password-less.php
+    restart: always
+    ports:
+      - ${ADMINER_PORT:-15012}:8080
+    networks:
+      - jiduoduo-network
+
+
+networks:
+  jiduoduo-network:
+    name: jiduoduo-network
+    enable_ipv6: true
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: fd00:db8:1234::/64
+          gateway: fd00:db8:1234::1
+
+# docker-compose pull
+
+# docker-compose build
+
+# docker-compose down && docker-compose up -d
+
+# only webserver and worker
+# docker-compose down webserver worker && docker-compose up webserver worker -d
+# git pull && docker-compose build && docker-compose down webserver worker && docker-compose up webserver worker -d

@@ -1,0 +1,67 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <ul class="list-group list-group-flush">
+
+    {% if current_user.is_authenticated %}
+      <li class="list-group-item">
+        <div>
+          <a class="icon-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+             href="{{ url_for('vps.list') }}"
+          >
+            <img src="{{ url_for('static', filename='new-computer.svg') }}" alt="delete account">
+            我的VPS（{{ vps_count }}）
+          </a>
+        </div>
+      </li>
+
+      <li class="list-group-item">
+        <div>
+          <a class="icon-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+             href="{{ url_for('testing.list') }}"
+          >
+            <img src="{{ url_for('static', filename='data-sheet.svg') }}" alt="delete account">
+            我的测试（{{ testing_count }}）
+          </a>
+        </div>
+      </li>
+
+
+    {% else %}
+      <li class="list-group-item">
+        <div class="mb-3">
+          <div>
+            你还没登录，<a href="{{ url_for('user.login') }}">登录</a> 或 <a
+              href="{{ url_for('user.register') }}">注册</a>
+          </div>
+        </div>
+      </li>
+    {% endif %}
+
+    <li class="list-group-item">
+      <div>
+        <h3>已公开的最近运行的测试：</h3>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for testing in testing_list %}
+          <li class="list-group-item">
+            <a href="{{ url_for('testing.detail', id=testing.id) }}"
+               class="fs-4 fw-bold link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               style="color: #4d4a48;"
+            >
+              {{ testing.display_name }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+
+  </ul>
+
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
