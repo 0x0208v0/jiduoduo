@@ -15,7 +15,7 @@
           {{ testing.display_name }}
         </li>
 
-        {% if current_user.is_authenticated %}
+        {% if current_user.is_authenticated and testing.user_id == current_user.id %}
 
           <li class="list-group-item">
             <div><img src="{{ url_for('static', filename='data-sheet.svg') }}" alt="type">测试类型：</div>
@@ -62,7 +62,7 @@
           <div class="d-flex align-items-end" style="height: 35px;">
             <span id="state">{{ testing.display_state_emoji }} {{ testing.display_state_zh }}</span>
 
-            {% if  current_user.is_authenticated %}
+            {% if  current_user.is_authenticated and testing.user_id == current_user.id %}
               <span class="ms-5 form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch"
                        id="public" {{ 'checked' if testing.is_public else '' }}
