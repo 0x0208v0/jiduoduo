@@ -234,9 +234,10 @@ class Testing(BaseModel, UserMixin):
             else:
                 rows -= 1
                 continue
+        rows += 1
 
         cols = 0
-        for index, line in enumerate(screen.display[-rows:]):
+        for index, line in enumerate(screen.display[:rows]):
             line = line.rstrip()
             cols = max(cols, len(line))
 
