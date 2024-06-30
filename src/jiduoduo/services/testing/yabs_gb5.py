@@ -36,7 +36,9 @@ class YABSGB5TestingService(TestingService):
         run_result = vps.run(
             command,
             timeout=params.timeout,
+            hide=True,
             warn=True,
+            pty=True,
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
 

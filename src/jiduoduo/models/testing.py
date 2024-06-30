@@ -228,7 +228,7 @@ class Testing(BaseModel, UserMixin):
         stream = pyte.Stream(screen)
         stream.feed(self.result)
 
-        for line in screen.display[::-1]:
+        for index, line in enumerate(screen.display[::-1]):
             if line.rstrip():
                 break
             else:
@@ -236,8 +236,9 @@ class Testing(BaseModel, UserMixin):
                 continue
 
         cols = 0
-        for line in screen.display[:rows]:
-            cols = max(cols, len(line.rstrip()))
+        for index, line in enumerate(screen.display[-rows:]):
+            line = line.rstrip()
+            cols = max(cols, len(line))
 
         return int(cols * 1.2), rows + 1
 
