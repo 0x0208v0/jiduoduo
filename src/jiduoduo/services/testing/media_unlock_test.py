@@ -1,6 +1,7 @@
 import time
 from typing import Callable
 
+from invoke import Responder
 from pydantic import Field
 
 from jiduoduo.models import VPS
@@ -40,6 +41,9 @@ class MediaUnlockTestTestingService(TestingService):
             hide=True,
             warn=True,
             pty=True,
+            watchers=[
+                Responder(pattern=r'回车确认', response='\n'),
+            ],
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
         time.sleep(1)
