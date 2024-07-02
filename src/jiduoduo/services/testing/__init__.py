@@ -55,6 +55,7 @@ TESTING_SERVICE_CLS_DICT = {
     TestingType.YABS_BASIC_SYS_INFO: YABSBasicSysInfoTestingService,
     TestingType.YABS_DISK: YABSDiskTestingService,
     TestingType.YABS_GB5: YABSGB5TestingService,
+    TestingType.IP_SB: IPSBTestingService,
 }
 
 
@@ -64,7 +65,7 @@ def get_testing_service_cls(testing_type: TestingType | str) -> type[TestingServ
     testing_service_cls = TESTING_SERVICE_CLS_DICT.get(testing_type)
 
     if testing_service_cls is None:
-        raise ValueError(f'不支持 {testing_type}')
+        raise ValueError(f'不支持 `{testing_type}` 测试类型')
 
     return testing_service_cls
 
