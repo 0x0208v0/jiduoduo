@@ -22,13 +22,13 @@
             <div class="d-flex align-items-end" style="height: 35px;">
               <span>{{ testing.display_type_zh }}</span>
 
-              <a class="icon-link link-danger ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+              <a class="ms-5 icon-link link-danger link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                  href="{{ url_for('testing.delete', id=testing.id) }}"
               >
                 <img src="{{ url_for('static', filename='delete.svg') }}" alt="delete testing">删除测试
               </a>
 
-              <a class="icon-link link-primary ms-5 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+              <a class="ms-5 icon-link link-primary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                  href="{{ url_for('testing.rerun', id=testing.id) }}"
               >
                 <img src="{{ url_for('static', filename='replay-music.svg') }}" alt="rerun">重跑测试
@@ -46,6 +46,13 @@
                    class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                 >
                   {{ testing.vps.name }} ({{ testing.vps.host }})
+                </a>
+
+                <a class="ms-5 icon-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                   href="{{ url_for('testing.create', vps_id=testing.vps.id) }}"
+                >
+                  <img src="{{ url_for('static', filename='add.svg') }}" alt="add testing">
+                  新建测试
                 </a>
               {% else %}
                 <span>VPS不存在</span>
@@ -197,25 +204,25 @@
       }
 
       axios.get(`{{ url_for('testing.api_detail', id=testing.id) }}`)
-          .then(function(response) {
+          .then(function (response) {
             // handle success
             testing = response.data.data;
             updateTerminal();
             updateState();
 
           })
-          .catch(function(error) {
+          .catch(function (error) {
             // handle error
             console.log(error);
 
           })
-          .finally(function() {
+          .finally(function () {
             // always executed
 
           });
     }, 1500);
 
-    const xterm_resize_ob = new ResizeObserver(function(entries) {
+    const xterm_resize_ob = new ResizeObserver(function (entries) {
       try {
         //fitAddon.fit();
         //terminal.resize(terminal.cols, testing.result_rows);
@@ -245,17 +252,17 @@
     publicCheckbox.addEventListener('click', () => {
       if (publicCheckbox.checked) {
         axios.post(`{{ url_for('testing.api_make_public', id=testing.id) }}`)
-            .then(function(response) {
+            .then(function (response) {
             })
-            .catch(function(error) {
+            .catch(function (error) {
               console.log(error);
               publicCheckbox.checked = false;
             })
       } else {
         axios.post(`{{ url_for('testing.api_make_private', id=testing.id) }}`)
-            .then(function(response) {
+            .then(function (response) {
             })
-            .catch(function(error) {
+            .catch(function (error) {
               console.log(error);
               publicCheckbox.checked = true;
             })
