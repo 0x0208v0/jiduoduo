@@ -69,6 +69,7 @@ class TestingType(StrEnum):
     NEXT_TRACE = 'next_trace'
     BACKTRACE = 'backtrace'
     IP_CHECK_PLACE = 'ip_check_place'
+    MEDIA_UNLOCK_TEST = 'unlock_media_test'
     REGION_RESTRICTION_CHECK = 'region_restriction_check'
     CHECK_UNLOCK_MEDIA = 'check_unlock_media'
     IP_SB_4 = 'ip_sb_4'
@@ -99,6 +100,7 @@ TESTING_TYPE_ZH = {
     TestingType.NEXT_TRACE: '可视化路由跟踪',
     TestingType.BACKTRACE: '三网回程路由测试',
     TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
+    TestingType.MEDIA_UNLOCK_TEST: '更快的流媒体解锁检测工具',
     TestingType.REGION_RESTRICTION_CHECK: '流媒体解锁测试专项',
     TestingType.CHECK_UNLOCK_MEDIA: '流媒体平台及游戏区域限制测试',
     TestingType.IP_SB_4: 'ip.sb IPv4 出口测试',
