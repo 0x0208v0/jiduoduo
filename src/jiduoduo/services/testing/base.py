@@ -1,5 +1,7 @@
 import json
 import logging
+import random
+import time
 from abc import ABC
 from abc import abstractmethod
 from typing import Callable
@@ -82,7 +84,7 @@ class TestingService(ABC):
                 params=params,
                 flush_callback=flush_result,
             )
-
+            time.sleep(random.randint(1, 2))
             if result.is_success:
                 testing.set_state_success(result=remove_x00(result.result), commit=not self.dry_run)
 

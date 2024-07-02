@@ -1,4 +1,3 @@
-import time
 from typing import Callable
 
 from invoke import Responder
@@ -46,5 +45,5 @@ class MediaUnlockTestTestingService(TestingService):
             ],
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
-        time.sleep(1)
+
         return MediaUnlockTestTestingResult(result=str(run_result))

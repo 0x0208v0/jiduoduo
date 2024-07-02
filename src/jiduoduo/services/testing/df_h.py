@@ -28,8 +28,10 @@ class DFHTestingService(TestingService):
             params: DFHTestingParams,
             flush_callback: Callable[[str], None] | None = None,
     ) -> DFHTestingResult:
+        command = 'df -h'
+
         run_result = vps.run(
-            'df -h',
+            command=command,
             timeout=params.timeout,
             warn=True,
         )

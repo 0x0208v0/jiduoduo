@@ -1,4 +1,3 @@
-import time
 from typing import Callable
 
 from pydantic import Field
@@ -42,5 +41,5 @@ class IPCheckPlaceTestingService(TestingService):
             pty=True,
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
-        time.sleep(1)
+
         return IPCheckPlaceTestingResult(result=str(run_result))

@@ -65,17 +65,14 @@ class TestingType(StrEnum):
     DD = 'dd'
     FREE_H = 'free_h'
     HYPER_SPEED = 'hyper_speed'
-    # IP 相关
     NEXT_TRACE = 'next_trace'
     BACKTRACE = 'backtrace'
     IP_CHECK_PLACE = 'ip_check_place'
     MEDIA_UNLOCK_TEST = 'unlock_media_test'
     REGION_RESTRICTION_CHECK = 'region_restriction_check'
     CHECK_UNLOCK_MEDIA = 'check_unlock_media'
-    IP_SB_4 = 'ip_sb_4'
-    IP_SB_6 = 'ip_sb_6'
+    IP_SB = 'ip_sb'
     IP_INFO_IO = 'ip_info_io'
-    # YABS 相关
     YABS_DEFAULT = 'yabs_default'
     YABS_BASIC_SYS_INFO = 'yabs_basic_sys_info'
     YABS_DISK = 'yabs_disk'
@@ -85,32 +82,35 @@ class TestingType(StrEnum):
 UNKNOWN_TESTING_TYPE_ZH = '未知测试类型'
 
 TESTING_TYPE_ZH = {
-    TestingType.LOGIN: '登录测试',
-    TestingType.MEMORY_CHECK: '超售检查',
-    TestingType.SPIRITLHLS_ECS: 'spiritLHLS ecs 融合怪',
-    TestingType.SPIRITLHLS_ECS_SPEED: 'spiritLHLS ecsspeed 自动更新测速服务器节点列表的网络基准测试脚本',
-    TestingType.NWS_GLOBAL: '网络测试专项（全球）',
-    TestingType.BASH_ICU_GB5: 'bash.icu GB5 测试',
-    TestingType.BASH_ICU_SPEED_TEST: 'bash.icu 多功能测速脚本',
-    TestingType.DF_H: '文件系统磁盘空间',
-    TestingType.DD: '硬盘测试专项',
-    TestingType.FREE_H: '系统内存使用情况',
-    TestingType.HYPER_SPEED: 'HyperSpeed 单线程三网测速',
-    # IP 相关
-    TestingType.NEXT_TRACE: '可视化路由跟踪',
-    TestingType.BACKTRACE: '三网回程路由测试',
-    TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
     TestingType.MEDIA_UNLOCK_TEST: '更快的流媒体解锁检测工具',
+    TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
     TestingType.REGION_RESTRICTION_CHECK: '流媒体解锁测试专项',
     TestingType.CHECK_UNLOCK_MEDIA: '流媒体平台及游戏区域限制测试',
-    TestingType.IP_SB_4: 'ip.sb IPv4 出口测试',
-    TestingType.IP_SB_6: 'ip.sb IPv6 出口测试',
-    TestingType.IP_INFO_IO: 'ipinfo.io 当前IP信息查询',
-    # YABS 相关
+    TestingType.NEXT_TRACE: '可视化路由跟踪',
+    TestingType.BACKTRACE: '三网回程路由测试',
+
+    TestingType.YABS_GB5: 'YABS GB5 测试',
+    TestingType.BASH_ICU_GB5: 'bash.icu GB5 测试',
+    TestingType.SPIRITLHLS_ECS: 'spiritLHLS ecs 融合怪',
+
     TestingType.YABS_DEFAULT: 'YABS 默认测试',
     TestingType.YABS_BASIC_SYS_INFO: 'YABS 系统基础信息',
     TestingType.YABS_DISK: 'YABS 硬盘测试',
-    TestingType.YABS_GB5: 'YABS GB5 测试',
+
+    TestingType.SPIRITLHLS_ECS_SPEED: 'spiritLHLS ecsspeed 自动更新测速服务器节点列表的网络基准测试脚本',
+    TestingType.NWS_GLOBAL: '网络测试专项（全球）',
+    TestingType.BASH_ICU_SPEED_TEST: 'bash.icu 多功能测速脚本',
+    TestingType.HYPER_SPEED: 'HyperSpeed 单线程三网测速',
+
+    TestingType.IP_SB: 'ip.sb IPv4 + IPv6 查询',
+    TestingType.IP_INFO_IO: 'ipinfo.io 当前IP信息查询',
+
+    TestingType.LOGIN: '登录测试',
+    TestingType.MEMORY_CHECK: '超售检查',
+
+    TestingType.DD: '硬盘测试专项',
+    TestingType.DF_H: '文件系统磁盘空间',
+    TestingType.FREE_H: '系统内存使用情况',
 }
 
 

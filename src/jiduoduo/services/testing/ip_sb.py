@@ -9,29 +9,31 @@ from jiduoduo.services.testing.base import TestingResult
 from jiduoduo.services.testing.base import TestingService
 
 
-class IPSB6TestingParams(TestingParams):
+class IPSBTestingParams(TestingParams):
     timeout: int = Field(10)  # seconds
 
 
-class IPSB6TestingResult(TestingResult):
+class IPSBTestingResult(TestingResult):
     pass
 
 
-class IPSB6TestingService(TestingService):
-    testing_type: TestingType = TestingType.IP_SB_6
-    testing_params_cls: type[IPSB6TestingParams] = IPSB6TestingParams
-    testing_result_cls: type[IPSB6TestingResult] = IPSB6TestingResult
+class IPSBTestingService(TestingService):
+    testing_type: TestingType = TestingType.IP_SB
+    testing_params_cls: type[IPSBTestingParams] = IPSBTestingParams
+    testing_result_cls: type[IPSBTestingResult] = IPSBTestingResult
 
     def run_on_vps(
             self,
             vps: VPS,
-            params: IPSB6TestingParams,
+            params: IPSBTestingParams,
             flush_callback: Callable[[str], None] | None = None,
-    ) -> IPSB6TestingResult:
+    ) -> IPSBTestingResult:
+        command = 'echo "IPv4"; curl -4 ip.sb; echo; echo "IPv6:"; curl -6 ip.sb'
+
         run_result = vps.run(
-            'curl -6 ip.sb',
+            command=command,
             timeout=params.timeout,
             warn=True,
         )
 
-        return IPSB6TestingResult(result=str(run_result))
+        return IPSBTestingResult(result=str(run_result))

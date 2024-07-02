@@ -28,8 +28,10 @@ class FreeHTestingService(TestingService):
             params: FreeHTestingParams,
             flush_callback: Callable[[str], None] | None = None,
     ) -> FreeHTestingResult:
+        command = 'free -h'
+
         run_result = vps.run(
-            'free -h',
+            command=command,
             timeout=params.timeout,
             warn=True,
         )

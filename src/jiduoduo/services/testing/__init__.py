@@ -16,8 +16,7 @@ from jiduoduo.services.testing.free_h import FreeHTestingService
 from jiduoduo.services.testing.hyper_speed import HyperSpeedTestingService
 from jiduoduo.services.testing.ip_check_place import IPCheckPlaceTestingService
 from jiduoduo.services.testing.ip_info_io import IPInfoIOTestingService
-from jiduoduo.services.testing.ip_sb_4 import IPSB4TestingService
-from jiduoduo.services.testing.ip_sb_6 import IPSB6TestingService
+from jiduoduo.services.testing.ip_sb import IPSBTestingService
 from jiduoduo.services.testing.login import LoginTestingService
 from jiduoduo.services.testing.media_unlock_test import MediaUnlockTestTestingService
 from jiduoduo.services.testing.memory_check import MemoryCheckTestingService
@@ -45,17 +44,13 @@ TESTING_SERVICE_CLS_DICT = {
     TestingType.DD: DDTestingService,
     TestingType.FREE_H: FreeHTestingService,
     TestingType.HYPER_SPEED: HyperSpeedTestingService,
-    # IP 相关
     TestingType.NEXT_TRACE: NextTraceTestingService,
     TestingType.BACKTRACE: BacktraceTestingService,
     TestingType.IP_CHECK_PLACE: IPCheckPlaceTestingService,
     TestingType.MEDIA_UNLOCK_TEST: MediaUnlockTestTestingService,
     TestingType.REGION_RESTRICTION_CHECK: RegionRestrictionCheckTestingService,
     TestingType.CHECK_UNLOCK_MEDIA: CheckUnlockMediaTestingService,
-    TestingType.IP_SB_4: IPSB4TestingService,
-    TestingType.IP_SB_6: IPSB6TestingService,
     TestingType.IP_INFO_IO: IPInfoIOTestingService,
-    # YABS 相关
     TestingType.YABS_DEFAULT: YABSDefaultTestingService,
     TestingType.YABS_BASIC_SYS_INFO: YABSBasicSysInfoTestingService,
     TestingType.YABS_DISK: YABSDiskTestingService,
@@ -83,13 +78,15 @@ def run_testing(
         testing = Testing.get(testing_or_id)
         if not testing:
             raise ValueError(f'not found testing, testing_id={testing_or_id}')
-
     else:
         testing = testing_or_id
 
-    testing_service_cls = get_testing_service_cls(testing.type)
-    service = testing_service_cls(dry_run=dry_run)
-    return service.run(testing=testing, params=params)
+    try:
+        testing_service_cls = get_testing_service_cls(testing.type)
+        service = testing_service_cls(dry_run=dry_run)
+        return service.run(testing=testing, params=params)
+    except Exception as e:
+        testing.set_state_failed(f'{e}')
 
 
 def run_testing_on_vps(
@@ -102,6 +99,7 @@ def run_testing_on_vps(
         vps = VPS.get(vps_or_id)
         if not vps:
             raise ValueError(f'not found vps, vps_id={vps_or_id}')
+
     else:
         vps = vps_or_id
 
