@@ -25,7 +25,7 @@
 
 ### 目前支持20种常见测试（其他的会陆续增加）
 
-![新建测试](https://img.erpweb.eu.org/imgs/2024/06/0a83874b3fdcb086.png)
+![新建测试](https://img.erpweb.eu.org/imgs/2024/07/52e5824fe6a688a3.png)
 
 ### 融合怪测试截图
 
