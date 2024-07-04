@@ -36,6 +36,7 @@ class BacktraceTestingService(TestingService):
             command,
             timeout=params.timeout,
             warn=True,
+            pty=True,
         )
 
         return BacktraceTestingResult(result=str(run_result))
