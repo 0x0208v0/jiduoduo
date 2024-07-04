@@ -35,6 +35,7 @@ class NWSGlobalDefaultTestingService(TestingService):
             command,
             timeout=params.timeout,
             warn=True,
+            pty=True,
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
 

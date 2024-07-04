@@ -36,6 +36,7 @@ class YABSBasicSysInfoTestingService(TestingService):
             command,
             timeout=params.timeout,
             warn=True,
+            pty=True,
         )
 
         return YABSBasicSysInfoTestingResult(result=str(run_result))

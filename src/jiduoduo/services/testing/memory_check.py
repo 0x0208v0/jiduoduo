@@ -36,6 +36,7 @@ class MemoryCheckTestingService(TestingService):
             command,
             timeout=params.timeout,
             warn=True,
+            pty=True,
         )
 
         return MemoryCheckTestingResult(result=str(run_result))
