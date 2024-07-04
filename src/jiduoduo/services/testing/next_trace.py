@@ -1,5 +1,6 @@
 from typing import Callable
 
+from invoke import Responder
 from pydantic import Field
 
 from jiduoduo.models import VPS
@@ -31,13 +32,16 @@ class NextTraceTestingService(TestingService):
     ) -> NextTraceTestingResult:
         # https://github.com/nxtrace/NTrace-core
 
-        command = 'curl nxtrace.org/nt |bash && nexttrace 1.1.1.1'
+        command = 'curl nxtrace.org/nt |bash ; nexttrace 8.8.4.4; nexttrace 2001:4860:4860::64 ; nexttrace youtube.com'
 
         run_result = vps.run(
             command,
             timeout=params.timeout,
             warn=True,
             pty=True,
+            watchers=[
+                Responder(pattern=r'Your Option', response='0\n'),
+            ],
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
 

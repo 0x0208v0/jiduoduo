@@ -12,7 +12,7 @@ from jiduoduo.utils.fabric_utils import StreamFlusher
 
 
 class SpiritLHLSECSTestingParams(TestingParams):
-    timeout: int = Field(60 * 10 * 2)  # seconds
+    timeout: int = Field(60 * 10 * 3)  # seconds
 
 
 class SpiritLHLSECSTestingResult(TestingResult):
