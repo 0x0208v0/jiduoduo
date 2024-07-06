@@ -1,6 +1,7 @@
 import time
 from typing import Callable
 
+from invoke import Responder
 from pydantic import Field
 
 from jiduoduo.models import VPS
@@ -30,6 +31,8 @@ class RegionRestrictionCheckTestingService(TestingService):
             params: RegionRestrictionCheckTestingParams,
             flush_callback: Callable[[str], None] | None = None,
     ) -> RegionRestrictionCheckTestingResult:
+        # https://github.com/1-stream/RegionRestrictionCheck
+
         command = 'bash <(curl -L -s https://github.com/1-stream/RegionRestrictionCheck/raw/main/check.sh)'
 
         run_result = vps.run(
@@ -38,6 +41,9 @@ class RegionRestrictionCheckTestingService(TestingService):
             hide=True,
             warn=True,
             pty=True,
+            watchers=[
+                Responder(pattern=r'或直接按回车', response='\n'),
+            ],
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
         time.sleep(1)
