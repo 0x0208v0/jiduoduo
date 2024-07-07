@@ -1,4 +1,4 @@
-FROM python:3.11.9 as pyhton311
+FROM python:3.11.9 AS pyhton311
 WORKDIR /jiduoduo_data
 COPY ./src /jiduoduo_data/src
 COPY ./pyproject.toml /jiduoduo_data/pyproject.toml
