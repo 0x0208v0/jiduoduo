@@ -15,6 +15,14 @@
           {{ testing.display_name }}
         </li>
 
+        <li class="list-group-item">
+          <div>
+            <img src="{{ url_for('static', filename='calendar.svg') }}" alt="created at">
+            开始时间 ～ 结束时间：
+          </div>
+          <div>{{ testing.format_started_at() }}（UTC）~ {{ testing.format_ended_at() }}（UTC）</div>
+        </li>
+
         {% if current_user.is_authenticated and testing.user_id == current_user.id %}
 
           <li class="list-group-item">
@@ -208,25 +216,25 @@
       }
 
       axios.get(`{{ url_for('testing.api_detail', id=testing.id) }}`)
-          .then(function (response) {
+          .then(function(response) {
             // handle success
             testing = response.data.data;
             updateTerminal();
             updateState();
 
           })
-          .catch(function (error) {
+          .catch(function(error) {
             // handle error
             console.log(error);
 
           })
-          .finally(function () {
+          .finally(function() {
             // always executed
 
           });
     }, 3000);
 
-    const xterm_resize_ob = new ResizeObserver(function (entries) {
+    const xterm_resize_ob = new ResizeObserver(function(entries) {
       try {
         //fitAddon.fit();
         //terminal.resize(terminal.cols, testing.result_rows);
@@ -256,17 +264,17 @@
     publicCheckbox.addEventListener('click', () => {
       if (publicCheckbox.checked) {
         axios.post(`{{ url_for('testing.api_make_public', id=testing.id) }}`)
-            .then(function (response) {
+            .then(function(response) {
             })
-            .catch(function (error) {
+            .catch(function(error) {
               console.log(error);
               publicCheckbox.checked = false;
             })
       } else {
         axios.post(`{{ url_for('testing.api_make_private', id=testing.id) }}`)
-            .then(function (response) {
+            .then(function(response) {
             })
-            .catch(function (error) {
+            .catch(function(error) {
               console.log(error);
               publicCheckbox.checked = true;
             })

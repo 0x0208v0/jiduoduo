@@ -7,6 +7,7 @@ from enum import StrEnum
 from functools import cached_property
 from typing import Self
 
+import pendulum
 import pyte
 from flask_login import current_user
 from pydantic import BaseModel as PydanticBaseModel
@@ -218,6 +219,12 @@ class Testing(BaseModel, UserMixin):
     @property
     def is_running(self) -> bool:
         return True if self.state == TestingState.RUNNING else False
+
+    def format_started_at(self, fmt='%Y-%m-%d %H:%M:%S', tz='UTC') -> str:
+        return pendulum.from_timestamp(self.started_at.timestamp(), tz).strftime(fmt)
+
+    def format_ended_at(self, fmt='%Y-%m-%d %H:%M:%S', tz='UTC') -> str:
+        return pendulum.from_timestamp(self.ended_at.timestamp(), tz).strftime(fmt)
 
     @property
     def duration(self) -> timedelta:
