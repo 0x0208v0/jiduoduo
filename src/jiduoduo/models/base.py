@@ -87,12 +87,14 @@ class SqlalchemyBaseModel(DeclarativeBase):
         server_default=GenerateUUID(),
         default=uuid.uuid4,
     )
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,
         default=lambda: datetime.utcnow(),
         server_default=func.current_timestamp(),
     )
+
     updated_at: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,

@@ -16,12 +16,14 @@ class VPSForm(BaseForm):
             'placeholder': '如：231.3.43.85 或者 2a04:bdc7:100:3ce2::df63:1234',
         }
     )
+
     name = StringField(
         'VPS 名称：',
         render_kw={
             'placeholder': '如：斯巴达24刀建站鸡；可以不填，默认为VPS地址',
         }
     )
+
     port = IntegerField(
         'SSH 端口：',
         default=22,
@@ -32,6 +34,7 @@ class VPSForm(BaseForm):
             'placeholder': '如：22 或者 其他自定义端口',
         }
     )
+
     user = StringField(
         'SSH 用户：',
         default='root',
@@ -42,12 +45,14 @@ class VPSForm(BaseForm):
             'placeholder': '如：root 或者 ubuntu 或者 别的',
         }
     )
+
     password = StringField(
         'SSH 密码：',
         render_kw={
             'placeholder': '和登录Key二选一，填一个就行',
         }
     )
+
     identify_key = TextAreaField(
         'SSH Key：',
         render_kw={
@@ -58,7 +63,25 @@ class VPSForm(BaseForm):
     )
 
 
+class VPSDetailForm(VPSForm):
+    password = StringField(
+        'SSH 密码：',
+        render_kw={
+            'placeholder': '已隐藏',
+        }
+    )
+
+    identify_key = TextAreaField(
+        'SSH Key：',
+        render_kw={
+            'rows': 5,
+            'placeholder': '已隐藏',
+        }
+    )
+
+
 class VPSCreateForm(VPSForm):
+
     def validate(self, extra_validators=None) -> bool:
         result = super().validate(extra_validators=extra_validators)
 

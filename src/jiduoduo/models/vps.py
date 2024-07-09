@@ -30,31 +30,37 @@ class VPS(BaseModel, UserMixin):
         UUID(),
         nullable=False,
     )
+
     name: Mapped[str] = mapped_column(
         String(128),
         nullable=False,
         unique=True,
     )
+
     host: Mapped[str] = mapped_column(
         String(128),
         nullable=False,
     )
+
     port: Mapped[int] = mapped_column(
         Integer,
         nullable=False,
         default=22,
     )
+
     user: Mapped[str] = mapped_column(
         String(128),
         nullable=False,
         default='root',
     )
+
     password: Mapped[str] = mapped_column(
         String(128),
         nullable=False,
         default='',
         server_default='',
     )
+
     identify_key: Mapped[str] = mapped_column(
         Text,
         nullable=False,

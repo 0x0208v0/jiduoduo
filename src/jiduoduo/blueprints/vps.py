@@ -10,7 +10,7 @@ from flask_login import current_user
 from flask_login import login_required
 
 from jiduoduo.forms.vps import VPSCreateForm
-from jiduoduo.forms.vps import VPSForm
+from jiduoduo.forms.vps import VPSDetailForm
 from jiduoduo.forms.vps import VPSUpdateForm
 from jiduoduo.models import VPS
 
@@ -64,7 +64,7 @@ def detail(id: str):
     if not vps or vps.user_id != current_user.id:
         return redirect(url_for('vps.list'))
 
-    form = VPSForm(
+    form = VPSDetailForm(
         name=vps.name,
         host=vps.host,
         port=vps.port,
@@ -72,9 +72,6 @@ def detail(id: str):
         password='',
         identify_key='',
     )
-
-    form.password.render_kw['placeholder'] = '已隐藏'
-    form.identify_key.render_kw['placeholder'] = '已隐藏'
 
     return render_template(
         'vps/detail.html',

@@ -16,6 +16,7 @@ class TestingForm(BaseForm):
             DataRequired(message='测试类型必须选'),
         ],
     )
+
     vps_id = SelectField(
         'VPS：',
         choices=[

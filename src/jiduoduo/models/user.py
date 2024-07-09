@@ -18,10 +18,12 @@ class User(BaseModel, UserMixin):
         index=True,
         nullable=False,
     )
+
     password_hash: Mapped[str] = mapped_column(
         String(256),
         nullable=False,
     )
+
     is_active: Mapped[bool] = mapped_column(
         Boolean,
         nullable=False,

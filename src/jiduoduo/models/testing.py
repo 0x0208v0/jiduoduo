@@ -120,11 +120,13 @@ class Testing(BaseModel, UserMixin):
         UUID(),
         nullable=False,
     )
+
     _type: Mapped[str] = mapped_column(
         'type',
         String(32),
         nullable=False,
     )
+
     vps_id: Mapped[uuid.UUID] = mapped_column(
         UUID(),
         nullable=False,
