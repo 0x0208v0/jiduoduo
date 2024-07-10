@@ -24,6 +24,7 @@ from jiduoduo.services.testing.next_trace import NextTraceTestingService
 from jiduoduo.services.testing.nws_global import NWSGlobalDefaultTestingService
 from jiduoduo.services.testing.region_restriction_check import RegionRestrictionCheckTestingService
 from jiduoduo.services.testing.spiritlhls_ecs import SpiritLHLSECSTestingService
+from jiduoduo.services.testing.spiritlhls_ecs_basic_sys_info import SpiritLHLSECSBasicSysInfoTestingService
 from jiduoduo.services.testing.spiritlhls_ecs_speed import SpiritLHLSECSSpeedTestingService
 from jiduoduo.services.testing.yabs_basic_sys_info import YABSBasicSysInfoTestingService
 from jiduoduo.services.testing.yabs_default import YABSDefaultTestingService
@@ -36,6 +37,7 @@ TESTING_SERVICE_CLS_DICT = {
     TestingType.LOGIN: LoginTestingService,
     TestingType.MEMORY_CHECK: MemoryCheckTestingService,
     TestingType.SPIRITLHLS_ECS: SpiritLHLSECSTestingService,
+    TestingType.SPIRITLHLS_ECS_BASIC_SYS_INFO: SpiritLHLSECSBasicSysInfoTestingService,
     TestingType.SPIRITLHLS_ECS_SPEED: SpiritLHLSECSSpeedTestingService,
     TestingType.NWS_GLOBAL: NWSGlobalDefaultTestingService,
     TestingType.BASH_ICU_GB5: BashIcuGB5TestingService,
@@ -53,6 +55,7 @@ TESTING_SERVICE_CLS_DICT = {
     TestingType.IP_INFO_IO: IPInfoIOTestingService,
     TestingType.YABS_DEFAULT: YABSDefaultTestingService,
     TestingType.YABS_BASIC_SYS_INFO: YABSBasicSysInfoTestingService,
+    TestingType.SPIRITLHLS_ECS_SYS_INFO: YABSBasicSysInfoTestingService,
     TestingType.YABS_DISK: YABSDiskTestingService,
     TestingType.YABS_GB5: YABSGB5TestingService,
     TestingType.IP_SB: IPSBTestingService,

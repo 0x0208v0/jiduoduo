@@ -58,6 +58,7 @@ class TestingType(StrEnum):
     LOGIN = 'login'
     MEMORY_CHECK = 'memory_check'
     SPIRITLHLS_ECS = 'spiritlhls_ecs'
+    SPIRITLHLS_ECS_BASIC_SYS_INFO = 'spiritlhls_ecs_basic_sys_info'
     SPIRITLHLS_ECS_SPEED = 'spiritlhls_ecs_speed'
     NWS_GLOBAL = 'nws_global'
     BASH_ICU_GB5 = 'bash_icu_gb5'
@@ -93,9 +94,10 @@ TESTING_TYPE_ZH = {
     TestingType.YABS_GB5: 'YABS GB5 测试',
     TestingType.BASH_ICU_GB5: 'bash.icu GB5 测试',
     TestingType.SPIRITLHLS_ECS: 'spiritLHLS ecs 融合怪',
-
     TestingType.YABS_DEFAULT: 'YABS 默认测试',
-    TestingType.YABS_BASIC_SYS_INFO: 'YABS 系统基础信息',
+
+    TestingType.SPIRITLHLS_ECS_BASIC_SYS_INFO: 'spiritLHLS ecs 融合怪 基础系统信息',
+    TestingType.YABS_BASIC_SYS_INFO: 'YABS 基础系统信息',
     TestingType.YABS_DISK: 'YABS 硬盘测试',
 
     TestingType.SPIRITLHLS_ECS_SPEED: 'spiritLHLS ecsspeed 自动更新测速服务器节点列表的网络基准测试脚本',

@@ -10,7 +10,7 @@ from jiduoduo.services.testing.base import TestingService
 
 
 class YABSBasicSysInfoTestingParams(TestingParams):
-    timeout: int = Field(15)  # seconds
+    timeout: int = Field(60)  # seconds
 
 
 class YABSBasicSysInfoTestingResult(TestingResult):
