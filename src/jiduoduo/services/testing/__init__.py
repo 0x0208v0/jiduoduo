@@ -55,7 +55,6 @@ TESTING_SERVICE_CLS_DICT = {
     TestingType.IP_INFO_IO: IPInfoIOTestingService,
     TestingType.YABS_DEFAULT: YABSDefaultTestingService,
     TestingType.YABS_BASIC_SYS_INFO: YABSBasicSysInfoTestingService,
-    TestingType.SPIRITLHLS_ECS_SYS_INFO: YABSBasicSysInfoTestingService,
     TestingType.YABS_DISK: YABSDiskTestingService,
     TestingType.YABS_GB5: YABSGB5TestingService,
     TestingType.IP_SB: IPSBTestingService,
