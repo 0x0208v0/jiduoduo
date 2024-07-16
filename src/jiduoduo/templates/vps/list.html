@@ -21,12 +21,11 @@
         </li>
         {% for vps in vps_list %}
           <li class="list-group-item">
-            <a href="{{ url_for('vps.detail', id=vps.id) }}"
-               class="fs-4 fw-bold link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-               style="color: #4d4a48;"
-            >
-              {{ vps.name or '无名鸡' }}
-            </a>
+            <div class="text-break" style="font-size: 16px; font-weight: 700;">
+              <a href="{{ url_for('vps.detail', id=vps.id) }}" style="color: #555; text-decoration: none;">
+                {{ vps.name or '无名鸡' }}
+              </a>
+            </div>
           </li>
         {% endfor %}
       </ul>
