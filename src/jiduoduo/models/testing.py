@@ -180,13 +180,13 @@ class Testing(BaseModel, UserMixin):
     )
 
     @cached_property
+    def vps_name(self) -> str:
+        return self.vps.name if self.vps else 'Not found'
+
+    @cached_property
     def display_name(self) -> str:
         state = self.display_state_emoji
-        if self.vps:
-            vps_name = self.vps.name
-        else:
-            vps_name = '未命名的VPS'
-        return f'{state}【{self.display_type_zh}】{vps_name}'
+        return f'{state}【{self.display_type_zh}】{self.vps_name}'
 
     @property
     def type(self) -> TestingType:

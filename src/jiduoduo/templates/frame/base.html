@@ -17,13 +17,41 @@
   鸡多多；开源VPS自动化测试平台；VPS自动化测试工具
 {% endblock %}
 
+{% block styles %}
+  {{ super() }}
+
+  <style>
+      html {
+          font-family: sans-serif;
+          line-height: 1.15;
+          -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+          margin: 0;
+          background-image: linear-gradient(#d4d4d4 1px, transparent 0), linear-gradient(90deg, #d4d4d4 1px, transparent 0);
+          background-size: 32px 32px;
+          background-color: #fffcf8;
+      }
+
+      .app {
+          background-color: #fff;
+          border-radius: 1rem;
+          box-shadow: 0 3px 8px rgba(0, 0, 0, .24);
+          box-sizing: border-box;
+          margin-bottom: 20px;
+          margin-top: 15px;
+          padding: 25px 30px;
+          transition: background-color .5s
+      }
+  </style>
+{% endblock %}
 
 {% block content %}
   <div id="app" class="d-flex flex-column justify-content-center align-items-center">
 
     {% block app %}
-
-      <div class="container-fluid" style="max-width: 666px;">
+      <div class="container-fluid app" style="max-width: 666px;">
         <nav class="navbar bg-body-tertiary mb-4">
           <div class="container-fluid">
             <div>
