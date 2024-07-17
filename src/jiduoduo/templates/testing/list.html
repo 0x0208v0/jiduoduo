@@ -1,4 +1,5 @@
 {% extends 'frame/base.html' %}
+{% import 'utils.html' as utils %}
 
 
 {% block container %}
@@ -14,18 +15,9 @@
           </a>
         </div>
       </li>
-        {% for testing in testing_list %}
-          <li class="list-group-item">
-            <div class="text-break" style="font-size: 16px; font-weight: 700;">
-              <a href="{{ url_for('testing.detail', id=testing.id) }}" style="color: #555; text-decoration: none;">
-                【{{ testing.display_type_zh }}】
-              </a>
-            </div>
-            <div class="text-break" style="font-size: 14px;">
-              <span class="ms-2">{{ testing.display_state_emoji }} {{ testing.vps_name }}</span>
-            </div>
-          </li>
-        {% endfor %}
+      {% for testing in testing_list %}
+        {{ utils.render_testing_list_item(testing) }}
+      {% endfor %}
     </ul>
   </div>
 {% endblock %}
