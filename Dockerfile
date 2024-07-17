@@ -1,4 +1,4 @@
-FROM python:3.11 AS pyhton311
+FROM python:3.11 AS python311
 WORKDIR /jiduoduo_data
 COPY ./src /jiduoduo_data/src
 COPY ./pyproject.toml /jiduoduo_data/pyproject.toml
@@ -7,11 +7,10 @@ RUN  python -m pip install --upgrade build  && python -m build
 
 FROM python:3.11
 WORKDIR /jiduoduo_data
-COPY --from=pyhton311 /jiduoduo_data/dist /jiduoduo_data/dist
+COPY --from=python311 /jiduoduo_data/dist /jiduoduo_data/dist
 RUN python -m pip install --no-cache-dir /jiduoduo_data/dist/*.whl && rm -rf /jiduoduo_data/dist
 
 
 # docker build -f Dockerfile -t jiduoduo .
 
 # docker run --rm -it jiduoduo bash
-
