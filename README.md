@@ -117,13 +117,13 @@
 默认地址：http://localhost:15000/    
 默认账户 & 密码：请手动注册
 
-### jiduoduo Redis 管理页面：
+### jiduoduo Redis 管理页面（需要用docker-compose.all.yaml启动才行）：
 
 默认地址：http://localhost:15011/  
 默认Username：jiduoduo  
 默认Password：jiduoduo
 
-### jiduoduo SQLite3 管理页面：
+### jiduoduo SQLite3 管理页面（需要用docker-compose.all.yaml启动才行）：
 
 默认地址：http://localhost:15012/  
 默认System：SQLite 3  
@@ -155,7 +155,7 @@
     # 启动 webserver 和 worker
     docker-compose down webserver worker && docker-compose up webserver worker -d
 
-    # 启动 redis 和 redis-commander
+    # 启动 redis 和 redis-commander（需要用docker-compose.all.yaml启动才行）
     docker-compose down redis redis-commander && docker-compose up redis redis-commander -d
 
 ### 如何查看当前 Docker 运行了哪些容器？
@@ -177,10 +177,10 @@
     # 查看 redis 容器里运行了哪些进程
     docker top jiduoduo-redis
 
-    # 查看 redis-commander 容器里运行了哪些进程
+    # 查看 redis-commander 容器里运行了哪些进程（需要用docker-compose.all.yaml启动才行）
     docker top jiduoduo-redis-commander
 
-    # 查看 adminer 容器里运行了哪些进程
+    # 查看 adminer 容器里运行了哪些进程（需要用docker-compose.all.yaml启动才行）
     docker top jiduoduo-adminer
 
 ### 如何进入到某个正在运行的 Docker 容器里？
@@ -196,10 +196,10 @@
     # 进入 redis 容器
     docker exec -it jiduoduo-redis bash
 
-    # 进入 redis-commander 容器（注意这里不是 bash 而是 sh）
+    # 进入 redis-commander 容器（注意这里不是 bash 而是 sh）（需要用docker-compose.all.yaml启动才行）
     docker exec -it jiduoduo-redis-commander sh
 
-    # 进入 adminer 容器
+    # 进入 adminer 容器（需要用docker-compose.all.yaml启动才行）
     docker exec -it jiduoduo-adminer bash
 
 ## 写代码前的准备——入门资料
