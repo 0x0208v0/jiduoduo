@@ -254,7 +254,7 @@ class Testing(BaseModel, UserMixin):
             line = line.rstrip()
             cols = max(cols, len(line))
 
-        return int(cols * 1.1), rows + 1
+        return int(cols * 1.15), rows + 1
 
     def to_dict(self) -> dict:
         terminal_cols, terminal_rows = self.terminal_cols_rows
