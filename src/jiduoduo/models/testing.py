@@ -85,37 +85,35 @@ class TestingType(StrEnum):
 UNKNOWN_TESTING_TYPE_ZH = '未知测试类型'
 
 TESTING_TYPE_ZH = {
-    TestingType.MEDIA_UNLOCK_TEST: '更快的流媒体解锁检测工具',
-    TestingType.IP_CHECK_PLACE: 'IP质量体检报告',
-    TestingType.REGION_RESTRICTION_CHECK: '流媒体解锁测试专项',
-    TestingType.CHECK_UNLOCK_MEDIA: '流媒体平台及游戏区域限制测试',
-    TestingType.NEXT_TRACE: '可视化路由跟踪',
-    TestingType.BACKTRACE: '三网回程路由测试',
+    TestingType.YABS_DEFAULT: 'YABS 测试',
+    TestingType.YABS_GB5: 'GB5 YABS 测试',
+    TestingType.BASH_ICU_GB5: 'GB5 bash.icu 测试',
+    TestingType.SPIRITLHLS_ECS: '融合怪 spiritLHLS ecs VPS融合怪服务器测评脚本（Shell版）',
+    TestingType.ONECLICKVIRT_ECS: '融合怪 oneclickvirt ecs VPS融合怪服务器测评脚本（GO重构版）',
 
-    TestingType.YABS_GB5: 'YABS GB5 测试',
-    TestingType.BASH_ICU_GB5: 'bash.icu GB5 测试',
-    TestingType.ONECLICKVIRT_ECS: 'oneclickvirt ecs 融合怪',
-    TestingType.SPIRITLHLS_ECS: 'spiritLHLS ecs 融合怪',
-    TestingType.YABS_DEFAULT: 'YABS 默认测试',
+    TestingType.MEDIA_UNLOCK_TEST: 'HsukqiLee MediaUnlockTest 更快的流媒体解锁检测工具',
+    TestingType.IP_CHECK_PLACE: 'xykt IPQuality IP质量体检报告',
+    TestingType.REGION_RESTRICTION_CHECK: '1-stream RegionRestrictionCheck 流媒体解锁测试专项',
+    TestingType.CHECK_UNLOCK_MEDIA: 'lmc999 RegionRestrictionCheck 流媒体平台及游戏区域限制测试',
+    TestingType.NEXT_TRACE: 'nxtrace NTrace-core 可视化路由跟踪',
+    TestingType.BACKTRACE: 'zhanghanyun backtrace 三网回程路由测试',
 
     TestingType.SPIRITLHLS_ECS_BASIC_SYS_INFO: 'spiritLHLS ecs 融合怪 基础系统信息',
     TestingType.YABS_BASIC_SYS_INFO: 'YABS 基础系统信息',
     TestingType.YABS_DISK: 'YABS 硬盘测试',
 
     TestingType.SPIRITLHLS_ECS_SPEED: 'spiritLHLS ecsspeed 自动更新测速服务器节点列表的网络基准测试脚本',
-    TestingType.NWS_GLOBAL: '网络测试专项（全球）',
+    TestingType.NWS_GLOBAL: '网络测试专项（全球）；暂未开源',
     TestingType.BASH_ICU_SPEED_TEST: 'bash.icu 多功能测速脚本',
     TestingType.HYPER_SPEED: 'HyperSpeed 单线程三网测速',
 
+    TestingType.MEMORY_CHECK: 'uselibrary memoryCheck 内存超售检查',
     TestingType.IP_SB: 'ip.sb IPv4 + IPv6 查询',
     TestingType.IP_INFO_IO: 'ipinfo.io 当前IP信息查询',
-
-    TestingType.LOGIN: '登录测试',
-    TestingType.MEMORY_CHECK: '超售检查',
-
-    TestingType.DD: '硬盘测试专项',
-    TestingType.DF_H: '文件系统磁盘空间',
-    TestingType.FREE_H: '系统内存使用情况',
+    TestingType.DD: 'Linux 硬盘测试专项',
+    TestingType.DF_H: 'Linux 文件系统磁盘空间',
+    TestingType.FREE_H: 'Linux 系统内存使用情况',
+    TestingType.LOGIN: 'SSH 登录测试',
 }
 
 

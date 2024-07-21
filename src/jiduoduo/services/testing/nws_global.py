@@ -29,6 +29,8 @@ class NWSGlobalDefaultTestingService(TestingService):
             params: NWSGlobalDefaultTestingParams,
             flush_callback: Callable[[str], None] | None = None,
     ) -> NWSGlobalDefaultTestingResult:
+        # 暂未开源
+
         command = 'curl -sL nws.sh | bash'
 
         run_result = vps.run(
