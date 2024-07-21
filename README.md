@@ -1,57 +1,38 @@
 # jiduoduo（中文名：鸡多多）
 
+❗️警❗️告❗.......️前方发现一大波测试脚本........正在向鸡多多袭来！！！！！！！！！
+
 ## 废话连篇的介绍：
 
 （送给全宇宙 MJJ 的礼物）
 
-基于 Web 的开源 VPS 自动化测试平台，支持IPv4+IPv6，私有化部署，全自动后台运行，随时随地测！
+基于 Web 的开源 VPS 自动化测试平台，支持IPv4 + IPv6，私有化部署，全自动后台运行，随时随地测！
 
-芜湖～ 目前已支持多达20种顶级测试脚本！包括但不限于：YABS GB5、IP解锁测试、三网回程、融合怪...
+芜湖～ 目前已支持 20+ 种顶级测试脚本！包括但不限于：YABS GB5、IP解锁测试、三网回程、融合怪...
 
-❗️警❗️告❗.......️前方发现一大波测试脚本........正在向鸡多多袭来！！！！！！！！！
+`也欢迎各位小伙伴参与 jiduoduo 开源项目中来～ XD `
 
-`（欢迎各位小伙伴参与 jiduoduo 开源项目，此处眼神暗示场内场外的MJJ们）`
+## 下面是 jiduoduo 的部分碎片：
 
-## TODO（接下来要做的）
+### 首页截图
 
-1. （重要）加入更多常用的和好用的测试脚本！
-1. 完善核心功能，慢慢发掘新需求，增加新功能
-1. 让页面设计变得更加好看
-1. 使劲宣传，疯狂打Call！
+![首页截图](https://img.erpweb.eu.org/imgs/2024/07/fd9dc374b31ac895.png)
 
-## 附上部分使用中的截图：
+### 目前支持 20+ 种常见测试（正在陆续增加中...）
 
-### 目前支持20种常见测试（其他的会陆续增加）
-
-![新建测试](https://img.erpweb.eu.org/imgs/2024/07/52e5824fe6a688a3.png)
+![新建测试](https://img.erpweb.eu.org/imgs/2024/07/fcd552821dffdeec.png)
 
 ### GB5测试截图
 
-![GB5测试](https://img.erpweb.eu.org/imgs/2024/05/51c72d03f3b740b0.jpg)
+![GB5测试](https://img.erpweb.eu.org/imgs/2024/07/ec18842560908b26.png)
 
 ### 融合怪测试截图
 
-![融合怪测试截图](https://img.erpweb.eu.org/imgs/2024/05/6996ce50bdca1e78.png)
+![融合怪测试截图](https://img.erpweb.eu.org/imgs/2024/07/f49f44c886971261.png)
 
-### 三网回程路由测试截图
+### IP质量体检报告截图
 
-![三网回程路由测试截图](https://img.erpweb.eu.org/imgs/2024/05/90b8341b69ef20b9.png)
-
-### 登陆后
-
-![登陆后](https://img.erpweb.eu.org/imgs/2024/05/1a4f286a7f94192c.jpg)
-
-### VPS列表页
-
-![VPS列表页](https://img.erpweb.eu.org/imgs/2024/05/4b3cdf1c6443e4f6.jpg)
-
-### 测试报告列表页
-
-![测试报告列表页](https://img.erpweb.eu.org/imgs/2024/05/87e5cebcb2f3c687.jpg)
-
-### 新增VPS
-
-![新增VPS](https://img.erpweb.eu.org/imgs/2024/05/173fe11066edac2f.jpg)
+![IP质量体检报告](https://img.erpweb.eu.org/imgs/2024/07/69b49875c81716e4.png)
 
 ## 免责声明
 
