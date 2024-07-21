@@ -92,9 +92,9 @@ TESTING_TYPE_ZH = {
     TestingType.ONECLICKVIRT_ECS: '融合怪 oneclickvirt ecs VPS融合怪服务器测评脚本（GO重构版）',
 
     TestingType.MEDIA_UNLOCK_TEST: 'HsukqiLee MediaUnlockTest 更快的流媒体解锁检测工具',
-    TestingType.IP_CHECK_PLACE: 'xykt IPQuality IP质量体检报告',
-    TestingType.REGION_RESTRICTION_CHECK: '1-stream RegionRestrictionCheck 流媒体解锁测试专项',
     TestingType.CHECK_UNLOCK_MEDIA: 'lmc999 RegionRestrictionCheck 流媒体平台及游戏区域限制测试',
+    TestingType.REGION_RESTRICTION_CHECK: 'xykt RegionRestrictionCheck 流媒体解锁检测脚本',
+    TestingType.IP_CHECK_PLACE: 'xykt IPQuality IP质量体检报告',
     TestingType.NEXT_TRACE: 'nxtrace NTrace-core 可视化路由跟踪',
     TestingType.BACKTRACE: 'zhanghanyun backtrace 三网回程路由测试',
 

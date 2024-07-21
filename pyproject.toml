@@ -32,6 +32,8 @@ dependencies = [
     'pydantic-settings==2.3.4',
     'filelock==3.15.4',
     'pyte==0.8.2',
+    'curl_cffi==0.7.1',
+    'requests==2.32.3',
 ]
 
 [project.scripts]

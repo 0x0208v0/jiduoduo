@@ -1,4 +1,3 @@
-import time
 from typing import Callable
 
 from invoke import Responder
@@ -31,9 +30,10 @@ class RegionRestrictionCheckTestingService(TestingService):
             params: RegionRestrictionCheckTestingParams,
             flush_callback: Callable[[str], None] | None = None,
     ) -> RegionRestrictionCheckTestingResult:
-        # https://github.com/1-stream/RegionRestrictionCheck
+        # https://github.com/1-stream/RegionRestrictionCheck # 更新滞后，暂时去掉
+        # https://github.com/xykt/RegionRestrictionCheck
 
-        command = 'bash <(curl -L -s https://github.com/1-stream/RegionRestrictionCheck/raw/main/check.sh)'
+        command = 'bash <(curl -L -s media.ispvps.com)'
 
         run_result = vps.run(
             command,
@@ -46,5 +46,4 @@ class RegionRestrictionCheckTestingService(TestingService):
             ],
             out_stream=StreamFlusher(flush_callback=flush_callback),
         )
-        time.sleep(1)
         return RegionRestrictionCheckTestingResult(result=str(run_result))

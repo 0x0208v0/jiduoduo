@@ -167,4 +167,5 @@ jiduoduo_data/
 *.sqlite3-journal@
 *.db
 .DS_Store
-
+src/*.png
+src/*.jpg
