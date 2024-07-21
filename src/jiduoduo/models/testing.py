@@ -85,9 +85,9 @@ class TestingType(StrEnum):
 UNKNOWN_TESTING_TYPE_ZH = '未知测试类型'
 
 TESTING_TYPE_ZH = {
-    TestingType.YABS_DEFAULT: 'YABS 测试',
-    TestingType.YABS_GB5: 'GB5 YABS 测试',
-    TestingType.BASH_ICU_GB5: 'GB5 bash.icu 测试',
+    TestingType.YABS_DEFAULT: 'YABS 基准测试',
+    TestingType.YABS_GB5: 'GB5 YABS 基准测试',
+    TestingType.BASH_ICU_GB5: 'GB5 bash.icu 基准测试',
     TestingType.SPIRITLHLS_ECS: '融合怪 spiritLHLS ecs VPS融合怪服务器测评脚本（Shell版）',
     TestingType.ONECLICKVIRT_ECS: '融合怪 oneclickvirt ecs VPS融合怪服务器测评脚本（GO重构版）',
 
