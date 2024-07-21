@@ -57,6 +57,7 @@ TESTING_STATE_EMOJI = {
 class TestingType(StrEnum):
     LOGIN = 'login'
     MEMORY_CHECK = 'memory_check'
+    ONECLICKVIRT_ECS = 'oneclickvirt_ecs'
     SPIRITLHLS_ECS = 'spiritlhls_ecs'
     SPIRITLHLS_ECS_BASIC_SYS_INFO = 'spiritlhls_ecs_basic_sys_info'
     SPIRITLHLS_ECS_SPEED = 'spiritlhls_ecs_speed'
@@ -93,6 +94,7 @@ TESTING_TYPE_ZH = {
 
     TestingType.YABS_GB5: 'YABS GB5 测试',
     TestingType.BASH_ICU_GB5: 'bash.icu GB5 测试',
+    TestingType.ONECLICKVIRT_ECS: 'oneclickvirt ecs 融合怪',
     TestingType.SPIRITLHLS_ECS: 'spiritLHLS ecs 融合怪',
     TestingType.YABS_DEFAULT: 'YABS 默认测试',
 

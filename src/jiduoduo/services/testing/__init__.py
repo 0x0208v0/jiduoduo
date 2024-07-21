@@ -22,6 +22,7 @@ from jiduoduo.services.testing.media_unlock_test import MediaUnlockTestTestingSe
 from jiduoduo.services.testing.memory_check import MemoryCheckTestingService
 from jiduoduo.services.testing.next_trace import NextTraceTestingService
 from jiduoduo.services.testing.nws_global import NWSGlobalDefaultTestingService
+from jiduoduo.services.testing.oneclickvirt_ecs import OneClickVirtECSTestingService
 from jiduoduo.services.testing.region_restriction_check import RegionRestrictionCheckTestingService
 from jiduoduo.services.testing.spiritlhls_ecs import SpiritLHLSECSTestingService
 from jiduoduo.services.testing.spiritlhls_ecs_basic_sys_info import SpiritLHLSECSBasicSysInfoTestingService
@@ -36,6 +37,7 @@ logger = logging.getLogger(__name__)
 TESTING_SERVICE_CLS_DICT = {
     TestingType.LOGIN: LoginTestingService,
     TestingType.MEMORY_CHECK: MemoryCheckTestingService,
+    TestingType.ONECLICKVIRT_ECS: OneClickVirtECSTestingService,
     TestingType.SPIRITLHLS_ECS: SpiritLHLSECSTestingService,
     TestingType.SPIRITLHLS_ECS_BASIC_SYS_INFO: SpiritLHLSECSBasicSysInfoTestingService,
     TestingType.SPIRITLHLS_ECS_SPEED: SpiritLHLSECSSpeedTestingService,
