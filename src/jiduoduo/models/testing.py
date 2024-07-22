@@ -96,7 +96,7 @@ TESTING_TYPE_ZH = {
     TestingType.REGION_RESTRICTION_CHECK: 'xykt RegionRestrictionCheck 流媒体解锁检测脚本',
     TestingType.IP_CHECK_PLACE: 'xykt IPQuality IP质量体检报告',
     TestingType.NEXT_TRACE: 'nxtrace NTrace-core 可视化路由跟踪',
-    TestingType.BACKTRACE: 'zhanghanyun backtrace 三网回程路由测试',
+    TestingType.BACKTRACE: 'oneclickvirt backtrace 三网回程路由测试',
 
     TestingType.SPIRITLHLS_ECS_BASIC_SYS_INFO: 'spiritLHLS ecs 融合怪 基础系统信息',
     TestingType.YABS_BASIC_SYS_INFO: 'YABS 基础系统信息',
