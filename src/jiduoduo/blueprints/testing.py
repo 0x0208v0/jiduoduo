@@ -152,3 +152,22 @@ def api_make_private(id: str):
     return {
         'data': testing.to_dict(),
     }
+
+
+@blueprint.post('/api/testing/<string:id>/image')
+@login_required
+def api_upload_image(id: str):
+    testing = Testing.get(id)
+    if not testing:
+        return {
+            'err': '不存在',
+        }
+    if testing.user_id != current_user.id:
+        return {
+            'err': '无权限',
+        }
+
+    # todo upload image
+    return {
+        'data': testing.to_dict(),
+    }

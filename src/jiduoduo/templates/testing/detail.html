@@ -90,8 +90,46 @@
                href="#"
                id="download"
             >
-              <img src="{{ url_for('static', filename='download.svg') }}" alt="rerun">保存测试结果
+              <img src="{{ url_for('static', filename='download.svg') }}" alt="download">保存测试结果为图片
             </a>
+
+            <a class="ms-5 icon-link link-primary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               href="#"
+               id="upload"
+               data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            >
+              <img src="{{ url_for('static', filename='upload.svg') }}" alt="upload">上传测试结果至图床
+            </a>
+
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">上传测试结果至图床</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="mb-3">
+                      <span class="ms-5 form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="mjj_today">
+                        <label class="form-check-label" for="mjj_today">MJJ.TODAY 图床</label>
+                      </span>
+
+                      <span class="ms-5 form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="16">
+                        <label class="form-check-label" for="16">16 图床</label>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">上传</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </li>
 
