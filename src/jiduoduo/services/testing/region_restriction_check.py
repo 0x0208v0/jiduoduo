@@ -33,6 +33,7 @@ class RegionRestrictionCheckTestingService(TestingService):
         # https://github.com/1-stream/RegionRestrictionCheck # 更新滞后，暂时去掉
         # https://github.com/xykt/RegionRestrictionCheck
 
+        # command = 'bash <(curl -L -s https://github.com/1-stream/RegionRestrictionCheck/raw/main/check.sh)'
         command = 'bash <(curl -L -s media.ispvps.com)'
 
         run_result = vps.run(

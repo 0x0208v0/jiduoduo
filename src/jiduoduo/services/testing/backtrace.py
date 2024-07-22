@@ -28,9 +28,11 @@ class BacktraceTestingService(TestingService):
             params: BacktraceTestingParams,
             flush_callback: Callable[[str], None] | None = None,
     ) -> BacktraceTestingResult:
-        # https://github.com/zhanghanyun/backtrace
+        # https://github.com/zhanghanyun/backtrace # 更新滞后，暂时去掉
+        # https://github.com/oneclickvirt/backtrace
 
-        command = 'curl https://raw.githubusercontent.com/zhanghanyun/backtrace/main/install.sh -sSf | sh'
+        # command = 'curl https://raw.githubusercontent.com/zhanghanyun/backtrace/main/install.sh -sSf | sh'
+        command = 'curl https://cdn.spiritlhl.net/https://raw.githubusercontent.com/oneclickvirt/backtrace/main/backtrace_install.sh -sSf | bash && backtrace'
 
         run_result = vps.run(
             command,
