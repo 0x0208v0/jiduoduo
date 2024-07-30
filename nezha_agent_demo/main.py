@@ -7,10 +7,10 @@ from proto import nezha_pb2_grpc
 
 class AuthGateway(grpc.AuthMetadataPlugin):
     def __init__(self, token):
-        self._token = token
+        self.token = token
 
     def __call__(self, context, callback):
-        metadata = (('client_secret', self._token),)
+        metadata = (('client_secret', self.token),)
         callback(metadata, None)
 
 
