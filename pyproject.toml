@@ -34,6 +34,8 @@ dependencies = [
     'pyte==0.8.2',
     'curl_cffi==0.7.1',
     'requests==2.32.3',
+    'grpcio==1.65.1',
+    'grpcio-tools==1.65.1',
 ]
 
 [project.scripts]
