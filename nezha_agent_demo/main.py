@@ -1,3 +1,4 @@
+import os
 import certifi
 import grpc
 
@@ -21,10 +22,10 @@ def load_credentials():
 
 def main():
     # 未接入CDN的面板服务器域名/IP
-    address = ''
+    address = os.getenv('NEZHA_SERVER_ADDRESS')
 
     # 密钥
-    secret = ''
+    secret = os.getenv('NEZHA_SERVER_SECRET')
 
     channel_credentials = grpc.ssl_channel_credentials(load_credentials())
 
