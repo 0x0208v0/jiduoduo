@@ -1,0 +1,22 @@
+{% macro render_testing_list_item(testing) %}
+  <li class="list-group-item d-flex">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="text-center me-2"
+           style="font-size: 20px;"
+      >
+        {{ testing.display_state_emoji }}
+      </div>
+    </div>
+
+    <div>
+      <div class="text-break" style="font-size: 16px; font-weight: 700;">
+        <a href="{{ url_for('testing.detail', id=testing.id) }}" style="color: #555; text-decoration: none;">
+          【{{ testing.display_type_zh }}】
+        </a>
+      </div>
+      <div class="text-break" style="font-size: 14px;">
+        <span class="ms-2">{{ testing.vps_name }}</span>
+      </div>
+    </div>
+  </li>
+{% endmacro %}

@@ -1,0 +1,35 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <div>
+    <h1>用户注册</h1>
+    <div class="mt-4">
+      <form action="{{ url_for('user.register') }}" method="POST">
+        <div>
+          {{ form.hidden_tag() }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.email.label(class="form-label") }}
+          {{ form.email(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.password.label(class="form-label") }}
+          {{ form.password(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.submit(class='btn btn-primary btn-block') }}
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

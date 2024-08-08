@@ -1,0 +1,39 @@
+{% extends 'frame/base.html' %}
+
+
+{% block container %}
+  <div>
+    <!--div>
+      <input class="form-control mb-2 " type="search" placeholder="🔍 快速搜索" aria-label="Search">
+    </div-->
+
+    <div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="mt-3">
+            <a class="icon-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+               href="{{ url_for('vps.create') }}"
+            >
+              <img src="{{ url_for('static', filename='add.svg') }}" alt="add vps">
+              添加VPS
+            </a>
+          </div>
+        </li>
+        {% for vps in vps_list %}
+          <li class="list-group-item">
+            <div class="text-break" style="font-size: 16px; font-weight: 700;">
+              <a href="{{ url_for('vps.detail', id=vps.id) }}" style="color: #555; text-decoration: none;">
+                {{ vps.name or '无名鸡' }}
+              </a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

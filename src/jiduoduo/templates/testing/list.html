@@ -1,0 +1,28 @@
+{% extends 'frame/base.html' %}
+{% import 'utils.html' as utils %}
+
+
+{% block container %}
+  <div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <div class="mt-3">
+          <a class="icon-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+             href="{{ url_for('testing.create') }}"
+          >
+            <img src="{{ url_for('static', filename='add.svg') }}" alt="add testing">
+            新建测试
+          </a>
+        </div>
+      </li>
+      {% for testing in testing_list %}
+        {{ utils.render_testing_list_item(testing) }}
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
